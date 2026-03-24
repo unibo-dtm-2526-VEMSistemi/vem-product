@@ -4,7 +4,11 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "setup:workspace": "node ./scripts/bootstrap-workspace.mjs",
+    "setup:backend": "node ./scripts/setup-backend.mjs",
+    "dev:backend": "node ./scripts/dev-backend.mjs",
+    "dev:frontend": "vite",
+    "dev": "node ./scripts/dev-all.mjs",
     "build": "vite build",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
