@@ -1,0 +1,36 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "VEM: Setup Backend (Once)",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "npm run setup:backend",
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "name": "VEM: Run Full Stack (Front + Back)",
+      "type": "node-terminal",
+      "request": "launch",
+      "preLaunchTask": "Setup Workspace (Once)",
+      "command": "npm run dev",
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "name": "VEM: Run Backend Only",
+      "type": "node-terminal",
+      "request": "launch",
+      "preLaunchTask": "Setup Workspace (Once)",
+      "command": "npm run dev:backend",
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "name": "VEM: Run Frontend Only",
+      "type": "node-terminal",
+      "request": "launch",
+      "preLaunchTask": "Setup Workspace (Once)",
+      "command": "npm run dev:frontend",
+      "cwd": "${workspaceFolder}"
+    }
+  ]
+}
