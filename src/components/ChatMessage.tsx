@@ -13,9 +13,10 @@ export interface ChatMsg {
 
 interface ChatMessageProps {
   message: ChatMsg;
+  onReviewSubmit?: (product: Product, problem: string) => void;
 }
 
-const ChatMessage = ({ message }: ChatMessageProps) => {
+const ChatMessage = ({ message, onReviewSubmit }: ChatMessageProps) => {
   const isUser = message.role === "user";
 
   return (
@@ -44,9 +45,7 @@ const ChatMessage = ({ message }: ChatMessageProps) => {
           {message.content}
         </div>
 
-        {message.product && (
-          <ProductCard product={message.product} />
-        )}
+        {message.product && <ProductCard product={message.product} onReviewSubmit={onReviewSubmit} />}
 
         <p className="text-[10px] text-muted-foreground">
           {message.timestamp.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}

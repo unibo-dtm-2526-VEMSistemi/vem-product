@@ -6,7 +6,8 @@ import ChatSidebar from "@/components/ChatSidebar";
 import ChatMessage, { type ChatMsg } from "@/components/ChatMessage";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import VemLogo from "@/components/VemLogo";
-import { findProduct, searchProducts, MOCK_PRODUCTS } from "@/data/mockProducts";
+import { findProduct, searchProducts, MOCK_PRODUCTS, type Product } from "@/data/mockProducts";
+import { useToast } from "@/hooks/use-toast";
 
 const WELCOME_MSG: ChatMsg = {
   id: "welcome",
@@ -24,6 +25,7 @@ const SESSIONS = [
 
 const ChatDashboard = () => {
   const navigate = useNavigate();
+  const { toast } = useToast();
   const [messages, setMessages] = useState<ChatMsg[]>([WELCOME_MSG]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -65,6 +67,34 @@ const ChatDashboard = () => {
     }, 1500);
   }, [input, isLoading]);
 
+  const handleReviewSubmit = useCallback(
+    (product: Product, problem: string) => {
+      const now = Date.now();
+      const reviewRequestMsg: ChatMsg = {
+        id: `${now}-review-user`,
+        role: "user",
+        content: `Review request for ${product.code}: ${problem}`,
+        timestamp: new Date(),
+      };
+
+      const ackMsg: ChatMsg = {
+        id: `${now}-review-assistant`,
+        role: "assistant",
+        content:
+          `Request sent. The accounting team will review ${product.code}. ` +
+          "You can continue with another product or add more context.",
+        timestamp: new Date(),
+      };
+
+      setMessages((prev) => [...prev, reviewRequestMsg, ackMsg]);
+      toast({
+        title: "Review request sent",
+        description: `${product.code} has been flagged for manual review.`,
+      });
+    },
+    [toast],
+  );
+
   return (
     <div className="h-screen flex overflow-hidden">
       <ChatSidebar
@@ -89,7 +119,7 @@ const ChatDashboard = () => {
         {/* Messages */}
         <div ref={scrollRef} className="flex-1 overflow-y-auto px-6 py-6 space-y-6">
           {messages.map((msg) => (
-            <ChatMessage key={msg.id} message={msg} />
+            <ChatMessage key={msg.id} message={msg} onReviewSubmit={handleReviewSubmit} />
           ))}
           {isLoading && (
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="pl-11">
