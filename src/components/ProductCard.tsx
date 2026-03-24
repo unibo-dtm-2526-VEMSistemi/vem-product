@@ -17,14 +17,17 @@ import { Textarea } from "@/components/ui/textarea";
 interface ProductCardProps {
   product: Product;
   onReviewSubmit?: (product: Product, problem: string) => void;
+  onConsistentSubmit?: (product: Product) => void;
 }
 
-const ProductCard = ({ product, onReviewSubmit }: ProductCardProps) => {
+const ProductCard = ({ product, onReviewSubmit, onConsistentSubmit }: ProductCardProps) => {
   const [isReviewDialogOpen, setIsReviewDialogOpen] = useState(false);
   const [reviewProblem, setReviewProblem] = useState("");
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isReportedForReview, setIsReportedForReview] = useState(false);
+  const [isConfirmedConsistent, setIsConfirmedConsistent] = useState(false);
   const isUnderReview = product.status === "review" || isReportedForReview;
+  const showStatusBadge = isUnderReview || isConfirmedConsistent;
 
   const handleSendReview = () => {
     const problem = reviewProblem.trim();
@@ -32,6 +35,7 @@ const ProductCard = ({ product, onReviewSubmit }: ProductCardProps) => {
 
     onReviewSubmit?.(product, problem);
     setIsReportedForReview(true);
+    setIsConfirmedConsistent(false);
     setReviewProblem("");
     setIsReviewDialogOpen(false);
   };
@@ -69,19 +73,21 @@ const ProductCard = ({ product, onReviewSubmit }: ProductCardProps) => {
         <div className="p-5 space-y-4">
           <div className="flex items-center justify-between">
             <PillarBadge pillar={product.pillar} />
-          <span
-            className={`flex items-center gap-1.5 text-xs font-medium ${
-              isUnderReview ? "text-amber-600" : "text-emerald-600"
-            }`}
-          >
-            {isUnderReview ? (
-              <AlertTriangle className="h-3.5 w-3.5" />
-            ) : (
-              <CheckCircle className="h-3.5 w-3.5" />
+            {showStatusBadge && (
+              <span
+                className={`flex items-center gap-1.5 text-xs font-medium ${
+                  isUnderReview ? "text-amber-600" : "text-emerald-600"
+                }`}
+              >
+                {isUnderReview ? (
+                  <AlertTriangle className="h-3.5 w-3.5" />
+                ) : (
+                  <CheckCircle className="h-3.5 w-3.5" />
+                )}
+                {isUnderReview ? "To be reviewed" : "Consistent with Accounting"}
+              </span>
             )}
-            {isUnderReview ? "To be reviewed" : "Consistent with Accounting"}
-          </span>
-        </div>
+          </div>
 
           <p className="text-sm text-muted-foreground leading-relaxed">{product.description}</p>
 
@@ -111,7 +117,13 @@ const ProductCard = ({ product, onReviewSubmit }: ProductCardProps) => {
 
           <div className="flex gap-2 pt-2">
             <button
-              onClick={() => setIsCollapsed(true)}
+              onClick={() => {
+                if (!isConfirmedConsistent && !isUnderReview) {
+                  onConsistentSubmit?.(product);
+                }
+                setIsConfirmedConsistent(true);
+                setIsCollapsed(true);
+              }}
               className="flex-1 py-2 px-4 rounded-md bg-primary text-primary-foreground text-xs font-semibold hover:opacity-90 transition-opacity"
             >
               Consistent with Accounting
