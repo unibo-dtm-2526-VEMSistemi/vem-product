@@ -29,3 +29,6 @@ dist-ssr
 backend/.venv/
 backend/__pycache__/
 backend/.pytest_cache/
+
+# Excel temporary lock files
+~$*.xlsx
