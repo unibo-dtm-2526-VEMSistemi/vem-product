@@ -1,0 +1,7 @@
+Codice Articolo,Lob Associata,Nome LOB,lob_norm,family,suggested_lob,family_lob_nunique,family_support,decision
+14208-08,4,COLLABORATION,4,14208,3004,2.0,2.0,manual_review_ambiguous_family
+33-912.0931,4,COLLABORATION,4,33,4009,3.0,28.0,manual_review_ambiguous_family
+33-917.227,4,COLLABORATION,4,33,4009,3.0,28.0,manual_review_ambiguous_family
+33-918.002,4,COLLABORATION,4,33,4009,3.0,28.0,manual_review_ambiguous_family
+C9115AXI-MULTI,2,APPARATI,2,C9115AXI,2006,3.0,3.0,manual_review_ambiguous_family
+WEXTWAR3YR-SP-05,17,DATACENTER INFRASTRUCTURE,17,WEXTWAR3YR-SP,24001,2.0,2.0,manual_review_ambiguous_family

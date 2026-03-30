@@ -1,0 +1,5 @@
+total_rows=22655
+grouping_lob_rows=54
+auto_fix_safe=6
+manual_review_ambiguous_family=6
+no_evidence=42

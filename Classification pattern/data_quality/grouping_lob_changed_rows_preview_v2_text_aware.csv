@@ -1,0 +1,9 @@
+Codice Articolo,Lob Associata,Lob Associata Orig Norm,Lob Associata Cleaned v2,LOB Cleaning Decision
+0151254-24,1,1,1002.0,auto_fix_safe_family_unique
+14208-08,4,4,4001.0,suggest_fix_by_description
+33-912.0931,4,4,4002.0,suggest_fix_by_description
+DSTACK-T0-E,3,3,2003.0,auto_fix_safe_family_unique
+NWSTACK-T0-E,2,2,2003.0,auto_fix_safe_family_unique
+SUBS-STORAGEGRID-UPG,3,3,3022.0,auto_fix_safe_family_unique
+SVS-PDNA-ESS,3,3,2003.0,auto_fix_safe_family_unique
+WBEXTWAR3YR-NB-02,17,17,17007.0,auto_fix_safe_family_unique
