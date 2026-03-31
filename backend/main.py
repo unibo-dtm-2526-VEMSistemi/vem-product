@@ -105,4 +105,3 @@ def rag_advise(payload: RagQuery) -> RagAnswer:
         citations=citations,
         generatedAt=datetime.now(timezone.utc).isoformat(),
     )
-

@@ -30,4 +30,3 @@ def test_rag_advise_contract() -> None:
     assert "inventoryDecision" in body["decision"]
     assert "confidence" in body
     assert "citations" in body
-
