@@ -1,0 +1,8 @@
+grouping_rows_total=54
+fixed_total=54
+remaining_total=0
+fixed_by_name_prefix2=54
+fixed_by_family_unique=0
+fixed_by_description=0
+manual_review=0
+no_evidence=0

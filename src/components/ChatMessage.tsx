@@ -13,9 +13,11 @@ export interface ChatMsg {
 
 interface ChatMessageProps {
   message: ChatMsg;
+  onReviewSubmit?: (product: Product, problem: string) => void;
+  onConsistentSubmit?: (product: Product) => void;
 }
 
-const ChatMessage = ({ message }: ChatMessageProps) => {
+const ChatMessage = ({ message, onReviewSubmit, onConsistentSubmit }: ChatMessageProps) => {
   const isUser = message.role === "user";
 
   return (
@@ -38,14 +40,18 @@ const ChatMessage = ({ message }: ChatMessageProps) => {
       <div className={`max-w-[75%] space-y-3 ${isUser ? "text-right" : ""}`}>
         <div className={`inline-block rounded-xl px-4 py-2.5 text-sm leading-relaxed ${
           isUser
-            ? "bg-primary text-primary-foreground rounded-br-sm"
-            : "bg-muted text-foreground rounded-bl-sm"
+            ? "bg-primary text-primary-foreground rounded-br-sm whitespace-pre-line"
+            : "bg-muted text-foreground rounded-bl-sm whitespace-pre-line"
         }`}>
           {message.content}
         </div>
 
         {message.product && (
-          <ProductCard product={message.product} />
+          <ProductCard
+            product={message.product}
+            onReviewSubmit={onReviewSubmit}
+            onConsistentSubmit={onConsistentSubmit}
+          />
         )}
 
         <p className="text-[10px] text-muted-foreground">

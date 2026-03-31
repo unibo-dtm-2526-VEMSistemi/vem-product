@@ -1,0 +1,3 @@
+column,dtype,non_null,null,n_unique
+Code,object,345,0,345
+Name,object,345,0,309
