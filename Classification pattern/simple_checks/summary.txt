@@ -1,0 +1,32 @@
+Rows: 22655
+Unique pairs (LOB, Nome LOB): 117
+LOB -> many Nome LOB: 0
+Nome LOB -> many LOB: 2
+
+Problematic Nome LOB (mapped to >1 LOB):
+- BUILDING AUTOMATION (lob_per_nome=2)
+- VIDEOSORVEGLIANZA (lob_per_nome=2)
+
+Top 10 prefix vs LOB:
+- C | LOB=2002 | count=428
+- PAN | LOB=20001 | count=368
+- AIR | LOB=2001 | count=243
+- X | LOB=3014 | count=236
+- P | LOB=3010 | count=222
+- UCS | LOB=3009 | count=202
+- LIC | LOB=2016 | count=200
+- FC | LOB=6007 | count=199
+- WS | LOB=2002 | count=195
+- CP | LOB=4001 | count=173
+
+Top 10 keywords vs Inventario:
+- -c | Inventario=Inventario | count=291
+- normal | Inventario=Inventario | count=154
+- s | Inventario=Inventario | count=117
+- factory integrated | Inventario=Inventario | count=106
+- sw | Inventario=Inventario | count=103
+- 100 | Inventario=Inventario | count=91
+- renew | Inventario=Inventario | count=80
+- per-0.1tb | Inventario=Inventario | count=72
+- bretella di permutazione cat. 6 | Inventario=Inventario | count=71
+- cable | Inventario=Inventario | count=68
