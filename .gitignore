@@ -32,3 +32,4 @@ backend/.pytest_cache/
 
 # Excel temporary lock files
 ~$*.xlsx
+**/**/__pycache__
