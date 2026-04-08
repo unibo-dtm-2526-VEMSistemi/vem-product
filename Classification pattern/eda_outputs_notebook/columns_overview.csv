@@ -1,6 +1,6 @@
 column,dtype,non_null,null,null_pct,n_unique
+Descrizione Articolo,object,22595,60,0.265,21283
 Codice Articolo,object,22655,0,0.0,22655
 Lob Associata,int64,22655,0,0.0,117
 Nome LOB,object,22655,0,0.0,115
 Inventario,object,22655,0,0.0,3
-Descrizione Articolo,object,22595,60,0.265,21283
