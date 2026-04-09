@@ -1,9 +1,0 @@
-Rows: 345
-Columns: 2
-Target column: None
-LOB column: None
-Nome LOB column: None
-Code column: Code
-Keywords column: None
-Duplicate rows (all columns): 0
-Columns with missing values: 0
