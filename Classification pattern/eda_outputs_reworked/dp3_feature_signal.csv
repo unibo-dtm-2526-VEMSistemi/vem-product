@@ -1,0 +1,12 @@
+feature,score,score_type
+code_prefix,0.6802283038196986,weighted_purity
+first_token,0.6737889653153812,weighted_purity
+code_len,0.3591255376963665,between_variance_ratio
+duration_months,0.3270655602661648,between_variance_ratio
+desc_char_len,0.2677930961468048,between_variance_ratio
+brand_vendor,0.22020586370066833,weighted_purity
+has_digit_in_code,0.20533856716588658,between_variance_ratio
+desc_token_count,0.16210280163798124,between_variance_ratio
+capacity_unit,0.15376359822430363,weighted_purity
+product_family,0.14337284745597345,weighted_purity
+Inventario,0.11098102346455925,weighted_purity
