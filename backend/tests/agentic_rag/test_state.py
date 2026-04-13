@@ -29,3 +29,4 @@ def test_agent_state_with_data():
     }
     assert state["article_info"]["lob_code_str"] == "02002"
     assert len(state["retrieval_results"]) == 1
+    assert state["classification"][0]["confidence"] == 0.9
