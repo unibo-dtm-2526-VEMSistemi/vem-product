@@ -19,8 +19,7 @@ def test_all_distances_equal():
 
 def test_result_is_rounded_to_4_decimals():
     result = compute_confidence(llm_confidence=73, cosine_distance=0.3, all_distances=[0.1, 0.3, 0.8])
-    assert isinstance(result, float)
-    assert result == round(result, 4)
+    assert result == 0.7221  # raw value is 0.722142857..., must be rounded
 
 def test_penalty_for_hallucinated_code():
     result = compute_confidence(llm_confidence=60, cosine_distance=1.8, all_distances=[0.2, 0.5, 1.0, 1.8])
