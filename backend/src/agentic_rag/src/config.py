@@ -1,7 +1,10 @@
 from pathlib import Path
+from dotenv import load_dotenv
 
 # Paths — resolved relative to this file so the module is portable
 _MODULE_ROOT = Path(__file__).parent.parent  # backend/src/agentic_rag/
+
+load_dotenv(_MODULE_ROOT / ".env")
 
 DATA_DIR = _MODULE_ROOT / "data"
 LOB_CODES_PATH = DATA_DIR / "lob_codes.csv"

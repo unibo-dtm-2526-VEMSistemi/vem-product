@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import time
+
 from langgraph.graph import StateGraph, END
 
 from src.state import AgentState
@@ -15,16 +17,25 @@ def should_continue(state: AgentState) -> str:
     return "continue"
 
 
+def _timed(name: str, fn):
+    def wrapper(state):
+        t0 = time.perf_counter()
+        result = fn(state)
+        print(f"[timing] {name}: {time.perf_counter() - t0:.2f}s")
+        return result
+    return wrapper
+
+
 def _db_lookup_wrapper(state: AgentState) -> dict:
-    return db_lookup_node(state)
+    return _timed("db_lookup", db_lookup_node)(state)
 
 
 def _web_enrichment_wrapper(state: AgentState) -> dict:
-    return web_enrichment_node(state)
+    return _timed("web_enrichment", web_enrichment_node)(state)
 
 
 def _rag_classification_wrapper(state: AgentState) -> dict:
-    return rag_classification_node(state)
+    return _timed("rag_classification", rag_classification_node)(state)
 
 
 def _build_graph() -> StateGraph:
@@ -63,6 +74,7 @@ def classify_article(article_code: str) -> dict:
     final_state = _graph.invoke(initial_state)
 
     article_info = final_state.get("article_info")
+    print()
 
     if article_info is None:
         return {

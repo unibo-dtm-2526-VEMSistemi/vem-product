@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import os
 
-from langchain_community.chat_models import ChatOllama
+from langchain_ollama import ChatOllama
 from langchain_core.messages import SystemMessage, HumanMessage
 from tavily import TavilyClient
 
@@ -50,7 +50,7 @@ def web_enrichment_node(state: AgentState) -> dict:
     try:
         tavily = TavilyClient(api_key=os.environ.get("TAVILY_API_KEY", ""))
         query = _build_search_query(description, brand)
-        search_response = tavily.search(query=query, max_results=TAVILY_MAX_RESULTS)
+        search_response = tavily.search(query=query, max_results=TAVILY_MAX_RESULTS, timeout=8)
         results = search_response.get("results", [])
         formatted = _format_results(results)
 

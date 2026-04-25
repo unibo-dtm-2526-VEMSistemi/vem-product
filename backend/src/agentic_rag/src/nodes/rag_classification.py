@@ -2,8 +2,9 @@ from __future__ import annotations
 
 import json
 import re
+from concurrent.futures import ThreadPoolExecutor
 
-from langchain_community.chat_models import ChatOllama
+from langchain_ollama import ChatOllama
 from langchain_core.messages import SystemMessage, HumanMessage
 
 from src.config import (
@@ -140,7 +141,7 @@ def _call_llm_with_retry(llm: ChatOllama, messages: list, state: AgentState) -> 
                 simple_user = (
                     f"Classifica questo articolo ICT: {article_info['descrizione_articolo']}\n"
                     f"Rispondi SOLO con JSON valido con chiave 'classifications' contenente "
-                    f"esattamente 3 oggetti con campi: lob_code, lob_name, inventory, explanation, llm_confidence.\n/think"
+                    f"esattamente 3 oggetti con campi: lob_code, lob_name, inventory, explanation, llm_confidence.\n/no_think"
                 )
                 messages = [SystemMessage(content=_SYSTEM_PROMPT), HumanMessage(content=simple_user)]
             else:
@@ -180,13 +181,16 @@ def rag_classification_node(state: AgentState) -> dict:
         if where_filter:
             assoc_query_kwargs["where"] = where_filter
 
-        assoc_results = assoc_col.query(**assoc_query_kwargs)
-
-        lob_results = lob_col.query(
-            query_embeddings=[embedding],
-            n_results=TOP_K_LOB,
-            include=["metadatas", "distances"],
-        )
+        lob_query_kwargs = {
+            "query_embeddings": [embedding],
+            "n_results": TOP_K_LOB,
+            "include": ["metadatas", "distances"],
+        }
+        with ThreadPoolExecutor(max_workers=2) as pool:
+            f_assoc = pool.submit(assoc_col.query, **assoc_query_kwargs)
+            f_lob = pool.submit(lob_col.query, **lob_query_kwargs)
+            assoc_results = f_assoc.result()
+            lob_results = f_lob.result()
 
         # Steps C + D: Build context (deduplication happens inside)
         context_block, all_distances = _build_context(assoc_results, lob_results)
@@ -207,7 +211,7 @@ def rag_classification_node(state: AgentState) -> dict:
             f"Brand/Vendor: {article_info.get('brand_vendor', 'N/A')}\n"
             f"Famiglia prodotto: {article_info.get('product_family', 'N/A')}\n"
             f"Informazioni web: {web_enrichment or 'N/A'}\n\n"
-            f"{context_block}\n\n/think"
+            f"{context_block}\n\n/no_think"
         )
 
         messages = [

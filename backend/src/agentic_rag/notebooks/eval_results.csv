@@ -1,0 +1,101 @@
+article_code,true_lob,true_inventory,pred_lob_1,pred_inventory_1,confidence_1,pred_lobs_top3,correct_top1,correct_top3
+VIA-AC-S-NFR,06004,Inventario,,,0.0,[],False,False
+CG-CST-B2- ACT,15007,Non in inventario,,,0.0,[],False,False
+CX01177043,06003,Inventario,,,0.0,[],False,False
+UCS-MR-1X161RVA-RF,03009,Inventario,,,0.0,[],False,False
+SW-FLASH-04-QS,03014,Inventario,,,0.0,[],False,False
+LH55QHBEBGCXEN,04009,Inventario,,,0.0,[],False,False
+GUSNB812,01002,Inventario,,,0.0,[],False,False
+IE-3300-8P2S-E,02015,Inventario,,,0.0,[],False,False
+CW9163E-DNA-OPTOUT,02001,Inventario,,,0.0,[],False,False
+7599-832-109,04001,Inventario,,,0.0,[],False,False
+CPAPMHS9203PLUSSNBT,06002,Inventario,,,0.0,[],False,False
+2604552-09,01006,Inventario,,,0.0,[],False,False
+P74507-B21,03010,Inventario,,,0.0,[],False,False
+OP10HONR,24001,Inventario,,,0.0,[],False,False
+MLV93QLA,03004,Inventario,,,0.0,[],False,False
+SFP-1G-SX=,02002,Inventario,,,0.0,[],False,False
+MBRCHARGER,03004,Inventario,,,0.0,[],False,False
+SONY SRG-X400WC,02014,Inventario,,,0.0,[],False,False
+778978,03004,Inventario,,,0.0,[],False,False
+DENODN900R,04009,Inventario,,,0.0,[],False,False
+PWR-2700-AC,02003,Inventario,,,0.0,[],False,False
+01189-001,02013,Inventario,,,0.0,[],False,False
+C12500,01006,Inventario,,,0.0,[],False,False
+KTL-TP3CL/8G,03004,Inventario,,,0.0,[],False,False
+SP532PLED47S840POELF,24002,Inventario,,,0.0,[],False,False
+P19777-B21,03010,Inventario,,,0.0,[],False,False
+DG7GMGF0FKX9,03002,Inventario,,,0.0,[],False,False
+CMPHF1,01008,Inventario,,,0.0,[],False,False
+481041-B21,03010,Inventario,,,0.0,[],False,False
+CPAP-SG1550W-CN-SNBT,06002,Inventario,,,0.0,[],False,False
+VS4-STD-C,03011,Inventario,,,0.0,[],False,False
+U859QL,04009,Inventario,,,0.0,[],False,False
+ACE-AC-PN-300,01006,Inventario,,,0.0,[],False,False
+OS01137519,06003,Inventario,,,0.0,[],False,False
+EKA01001,03005,Inventario,,,0.0,[],False,False
+LKCHDMI102,04009,Inventario,,,0.0,[],False,False
+C9300-DNA-A-24S,02002,Inventario,,,0.0,[],False,False
+SB11021,03004,Inventario,,,0.0,[],False,False
+FL-44-PERF-K9=,02003,Inventario,,,0.0,[],False,False
+CON-SNT-VSXLBMDC,99006,Non in inventario,,,0.0,[],False,False
+MPC3-302-W,04009,Inventario,,,0.0,[],False,False
+FC10S108P2470212,06007,Non in inventario,,,0.0,[],False,False
+A9E18320,24001,Inventario,,,0.0,[],False,False
+LWAEB.AL,04009,Inventario,,,0.0,[],False,False
+LH10DBEPEBB/EN,04009,Inventario,,,0.0,[],False,False
+C/128,01002,Inventario,,,0.0,[],False,False
+FACCHINAGGIO,99004,Non in inventario,,,0.0,[],False,False
+ML2240,03004,Inventario,,,0.0,[],False,False
+AFF-A150A-005,03014,Inventario,,,0.0,[],False,False
+BLUX0101G17NCS,24002,Inventario,,,0.0,[],False,False
+SYS-5017R-MF,03004,Inventario,,,0.0,[],False,False
+397409-B21,03010,Inventario,,,0.0,[],False,False
+EPDU1116SMBO,17007,Inventario,,,0.0,[],False,False
+ASA5506-K9,06001,Inventario,,,0.0,[],False,False
+PRF-AS-50-SC-PIG2,01002,Inventario,,,0.0,[],False,False
+TTA-C,02006,Inventario,,,0.0,[],False,False
+JL676A#ABB,02005,Inventario,,,0.0,[],False,False
+SWSSPCLOUDVOLM300PRE,03014,Inventario,,,0.0,[],False,False
+CT00922569,06003,Inventario,,,0.0,[],False,False
+UCS-CPU-I4208,03009,Inventario,,,0.0,[],False,False
+CT00921922,06003,Inventario,,,0.0,[],False,False
+FORFC110M30042480212,06007,Inventario,,,0.0,[],False,False
+XPPPLUSBL,02013,Inventario,,,0.0,[],False,False
+LS27AM500NRXEN,04009,Inventario,,,0.0,[],False,False
+NWSTACK-T0-E,02999,Inventario,,,0.0,[],False,False
+B09FS7CRLL,01002,Inventario,,,0.0,[],False,False
+VE.20.200.429,02013,Inventario,,,0.0,[],False,False
+AFF-C190A-SYS-SC,03014,Inventario,,,0.0,[],False,False
+PWE-4803RU,24001,Inventario,,,0.0,[],False,False
+E2F-SEC-EMAIL,06001,Non in inventario,,,0.0,[],False,False
+5745454-03,01006,Inventario,,,0.0,[],False,False
+NW-MS-NA-AD,03005,Non in inventario,,,0.0,[],False,False
+LIC-MS-100-S-E,02016,Non in inventario,,,0.0,[],False,False
+UCS-CPU-I4215,03009,Inventario,,,0.0,[],False,False
+AIR-LAP1261N-E-K9,02001,Inventario,,,0.0,[],False,False
+C/16015,01002,Inventario,,,0.0,[],False,False
+BE6K-SW-11.5,04004,Inventario,,,0.0,[],False,False
+OC-ACC-550240-00,01002,Inventario,,,0.0,[],False,False
+J9773A,02005,Inventario,,,0.0,[],False,False
+P52498-B21,03004,Inventario,,,0.0,[],False,False
+9000000074Y1,06027,Inventario,,,0.0,[],False,False
+1-1671495-5,01001,Inventario,,,0.0,[],False,False
+GLC-SX-MM-RGD=,02002,Inventario,,,0.0,[],False,False
+HD-MD-4K-400 KIT,02006,Inventario,,,0.0,[],False,False
+FC10002088110212,06007,Non in inventario,,,0.0,[],False,False
+A-ASSIST-PP-LG,04008,Non in inventario,,,0.0,[],False,False
+PME-BS,17001,Inventario,,,0.0,[],False,False
+A9N15658,17001,Inventario,,,0.0,[],False,False
+LRI1663/00,24001,Inventario,,,0.0,[],False,False
+300-73566,01002,Inventario,,,0.0,[],False,False
+RS-BT-FE-PE-PP,03039,Inventario,,,0.0,[],False,False
+LIC-MX68W-ENT-3YR,02016,Inventario,,,0.0,[],False,False
+FTS:IP00NI00IT0579,03004,Non in inventario,,,0.0,[],False,False
+WS-C3750G-48PSS-RF,02002,Inventario,,,0.0,[],False,False
+GGRACCCP2,01002,Inventario,,,0.0,[],False,False
+H500S-2X4-P,03014,Inventario,,,0.0,[],False,False
+TS-7/10-MUMK-W,04009,Inventario,,,0.0,[],False,False
+IE3100_SW,02002,Inventario,,,0.0,[],False,False
+X1133A-R6-C,03014,Inventario,,,0.0,[],False,False
+GXX0-4X2R4TB.P,03035,Inventario,,,0.0,[],False,False

@@ -31,6 +31,12 @@ def load_datasets() -> tuple[pd.DataFrame, pd.DataFrame]:
         .str.zfill(max_lob_len)
     )
 
+    # Enrich articles with LOB name from lob_df
+    lob_names = lob_df[["LOB Code", "Name"]].copy()
+    lob_names["lob_code_str"] = lob_names["LOB Code"].astype(str).str.zfill(max_lob_len)
+    lob_names = lob_names[["lob_code_str", "Name"]].rename(columns={"Name": "lob_nome"})
+    articles_df = articles_df.merge(lob_names, on="lob_code_str", how="left")
+
     # Drop rows with missing or empty rag_text
     articles_df = articles_df.dropna(subset=["rag_text"])
     articles_df = articles_df[articles_df["rag_text"].str.strip() != ""]
