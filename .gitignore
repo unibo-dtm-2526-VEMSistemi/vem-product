@@ -36,3 +36,5 @@ backend/.pytest_cache/
 
 .claude
 wip.md
+
+backend/src/agentic_rag/vectorstore
