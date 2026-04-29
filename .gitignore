@@ -38,3 +38,5 @@ backend/.pytest_cache/
 wip.md
 
 backend/src/agentic_rag/vectorstore
+
+.env
