@@ -33,3 +33,8 @@ backend/.pytest_cache/
 # Excel temporary lock files
 ~$*.xlsx
 **/**/__pycache__
+
+.claude
+wip.md
+
+backend/src/agentic_rag/vectorstore
