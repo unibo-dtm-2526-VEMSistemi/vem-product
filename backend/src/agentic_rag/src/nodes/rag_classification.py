@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import re
+import time
 from concurrent.futures import ThreadPoolExecutor
 
 from langchain_ollama import ChatOllama
@@ -150,10 +151,14 @@ def _call_llm_with_retry(llm: ChatOllama, messages: list, state: AgentState) -> 
 
 def rag_classification_node(state: AgentState) -> dict:
     """Node 3: RAG retrieval + LLM classification."""
+    t_node_start = time.perf_counter()
+    timings: dict[str, float] = {}
+
     article_info = state["article_info"]
     web_enrichment = state.get("web_enrichment", "")
 
     # Step A: Build query
+    t0 = time.perf_counter()
     parts = []
     if article_info.get("brand_vendor"):
         parts.append(article_info["brand_vendor"])
@@ -163,13 +168,19 @@ def rag_classification_node(state: AgentState) -> dict:
     if web_enrichment and web_enrichment != "No external information available.":
         parts.append(web_enrichment)
     query = " ".join(parts)
+    timings["A_build_query"] = time.perf_counter() - t0
 
     try:
+        t0 = time.perf_counter()
         lob_col, assoc_col = get_collections()
+        timings["B1_get_collections"] = time.perf_counter() - t0
 
         # Step B: Single embedding, dual collection query
+        t0 = time.perf_counter()
         embedding = _embed_query(query)
+        timings["B2_embed_query"] = time.perf_counter() - t0
 
+        t0 = time.perf_counter()
         inventory_filter = _infer_inventory_filter(web_enrichment)
         where_filter = {"inventario": inventory_filter} if inventory_filter else None
 
@@ -191,11 +202,15 @@ def rag_classification_node(state: AgentState) -> dict:
             f_lob = pool.submit(lob_col.query, **lob_query_kwargs)
             assoc_results = f_assoc.result()
             lob_results = f_lob.result()
+        timings["B3_vector_search"] = time.perf_counter() - t0
 
         # Steps C + D: Build context (deduplication happens inside)
+        t0 = time.perf_counter()
         context_block, all_distances = _build_context(assoc_results, lob_results)
+        timings["CD_build_context"] = time.perf_counter() - t0
 
         # Step E: Call LLM (thinking mode)
+        t0 = time.perf_counter()
         llm = ChatOllama(
             model=OLLAMA_MODEL,
             base_url=OLLAMA_BASE_URL,
@@ -221,10 +236,11 @@ def rag_classification_node(state: AgentState) -> dict:
 
         # Steps F: Parse with retry
         parsed = _call_llm_with_retry(llm, messages, state)
+        timings["EF_llm_call"] = time.perf_counter() - t0
         classifications_raw = parsed.get("classifications", [])
 
         # Step G: Compute confidence
-        # Build lookup of lob_code → best distance from retrieval
+        t0 = time.perf_counter()
         lob_distances_map: dict[str, float] = {}
         assoc_metas = assoc_results.get("metadatas", [[]])[0]
         assoc_dists = assoc_results.get("distances", [[]])[0]
@@ -252,6 +268,14 @@ def rag_classification_node(state: AgentState) -> dict:
                 "explanation": cls.get("explanation", ""),
                 "confidence": confidence,
             })
+        suggestions.sort(key=lambda x: x.get('confidence'), reverse=True)
+        timings["G_confidence"] = time.perf_counter() - t0
+
+        total = time.perf_counter() - t_node_start
+        print("[rag_classification] step timings (s):")
+        for step, elapsed in timings.items():
+            print(f"  {step:<22} {elapsed:.3f}s")
+        print(f"  {'TOTAL':<22} {total:.3f}s")
 
         return {
             "classification": suggestions,
