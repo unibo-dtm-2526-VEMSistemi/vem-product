@@ -15,7 +15,8 @@ CHROMA_PERSIST_DIR = str(_MODULE_ROOT / "vectorstore")
 OLLAMA_BASE_URL = "http://localhost:11434"
 OLLAMA_MODEL = "qwen3:8b"
 OLLAMA_TEMPERATURE = 0.1
-OLLAMA_NUM_CTX = 8192
+OLLAMA_NUM_CTX = 4096    # 3 JSON suggestions fit well under 512 output tokens
+# Speed tip: set OLLAMA_FLASH_ATTENTION=1 and OLLAMA_KV_CACHE_TYPE=q8_0 in env
 
 # ChromaDB collections
 CHROMA_COLLECTION_LOB = "lob_codes"

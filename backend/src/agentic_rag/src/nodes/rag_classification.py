@@ -11,6 +11,8 @@ from langchain_core.messages import SystemMessage, HumanMessage
 from src.config import (
     OLLAMA_BASE_URL,
     OLLAMA_MODEL,
+    OLLAMA_TEMPERATURE,
+    OLLAMA_NUM_CTX,
     TOP_K_ASSOCIATIONS,
     TOP_K_LOB,
     FINAL_TOP_N,
@@ -47,7 +49,7 @@ Regole:
 - inventory DEVE essere esattamente "Inventario" o "Non in inventario".
 - llm_confidence: 100 = prova inequivocabile; sotto 30 = ipotesi. Valuta quanto i documenti \
 recuperati supportano questa classificazione.
-- Ordina i 3 suggerimenti da confidenza più alta a più bassa.
+- 3 suggerimenti ordinati da confidenza più alta a più bassa.
 - Fai riferimento a prodotti simili o descrizioni LOB nelle tue spiegazioni.
 - Scrivi l'explanation in italiano.
 """
@@ -142,7 +144,7 @@ def _call_llm_with_retry(llm: ChatOllama, messages: list, state: AgentState) -> 
                 simple_user = (
                     f"Classifica questo articolo ICT: {article_info['descrizione_articolo']}\n"
                     f"Rispondi SOLO con JSON valido con chiave 'classifications' contenente "
-                    f"esattamente 3 oggetti con campi: lob_code, lob_name, inventory, explanation, llm_confidence.\n/no_think"
+                    f"esattamente 3 oggetti con campi: lob_code, lob_name, inventory, explanation, llm_confidence."
                 )
                 messages = [SystemMessage(content=_SYSTEM_PROMPT), HumanMessage(content=simple_user)]
             else:
@@ -209,15 +211,18 @@ def rag_classification_node(state: AgentState) -> dict:
         context_block, all_distances = _build_context(assoc_results, lob_results)
         timings["CD_build_context"] = time.perf_counter() - t0
 
-        # Step E: Call LLM (thinking mode)
+        # Step E: Call LLM
         t0 = time.perf_counter()
         llm = ChatOllama(
             model=OLLAMA_MODEL,
             base_url=OLLAMA_BASE_URL,
-            temperature=0.6,
-            top_p=0.95,
+            reasoning=False,
+            temperature=OLLAMA_TEMPERATURE,
+            top_p=0.9,
             top_k=20,
-            num_ctx=8192,
+            num_ctx=OLLAMA_NUM_CTX,
+            num_thread=8,
+            num_gpu=99,
         )
 
         user_message = (
@@ -226,7 +231,7 @@ def rag_classification_node(state: AgentState) -> dict:
             f"Brand/Vendor: {article_info.get('brand_vendor', 'N/A')}\n"
             f"Famiglia prodotto: {article_info.get('product_family', 'N/A')}\n"
             f"Informazioni web: {web_enrichment or 'N/A'}\n\n"
-            f"{context_block}\n\n/no_think"
+            f"{context_block}"
         )
 
         messages = [
@@ -269,6 +274,8 @@ def rag_classification_node(state: AgentState) -> dict:
                 "confidence": confidence,
             })
         suggestions.sort(key=lambda x: x.get('confidence'), reverse=True)
+        for idx, s in enumerate(suggestions):
+            s["rank"] = idx + 1
         timings["G_confidence"] = time.perf_counter() - t0
 
         total = time.perf_counter() - t_node_start

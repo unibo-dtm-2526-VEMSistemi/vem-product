@@ -87,6 +87,7 @@ def web_enrichment_node(state: AgentState) -> dict:
         llm = ChatOllama(
             model=OLLAMA_MODEL,
             base_url=OLLAMA_BASE_URL,
+            reasoning=False,
             temperature=0.1,
             num_ctx=4096,
         )
