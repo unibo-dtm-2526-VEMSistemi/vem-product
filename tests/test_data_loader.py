@@ -113,6 +113,26 @@ def test_get_article_info_not_found():
     assert result is None
 
 
+def test_get_train_test_split_with_stratifiable_data():
+    """When LOB codes have ≥2 samples each, sk_split path (lines 65-75) executes."""
+    rows = []
+    for i in range(1, 6):
+        rows.append(f"CISCO-{i:03d},CISCO SWITCH {i},2002,Inventario,ART,,CISCO,SWITCH,,50,20,APPARATI CISCO LAN,cisco switch {i},CISCO SWITCH {i}")
+    for i in range(1, 6):
+        rows.append(f"HP-{i:03d},HP CABLE {i},1001,Inventario,ART,,HP,CABLE,,30,15,CABLAGGI COMMSCOPE,hp cable {i},HP CABLE {i}")
+    header = "codice_articolo,descrizione_articolo,lob_associata_cleaned,inventario,code_prefix,duration_months,brand_vendor,product_family,capacity_unit,desc_token_count,desc_char_len,lob_nome,description_norm,rag_text"
+    articles_multi = header + "\n" + "\n".join(rows) + "\n"
+
+    from src import data_loader
+    data_loader.load_datasets.cache_clear()
+
+    with patch("src.data_loader.pd.read_csv", side_effect=_make_mock_read_csv(articles_csv=articles_multi)):
+        train_df, test_df = data_loader.get_train_test_split()
+
+    assert len(train_df) + len(test_df) == 10
+    assert len(test_df) > 0
+
+
 def test_get_lob_codes_returns_dataframe():
     from src import data_loader
     data_loader.load_datasets.cache_clear()

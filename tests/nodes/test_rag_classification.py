@@ -172,3 +172,16 @@ def test_rag_classification_node_llm_failure():
 
     # Should not crash; should set error and return empty or partial classification
     assert result.get("error") is not None or result.get("classification") == []
+
+
+def test_embed_query_calls_embedding_function():
+    """_embed_query returns the first embedding vector for the query."""
+    from src.nodes.rag_classification import _embed_query
+
+    mock_ef = MagicMock(return_value=[[0.1, 0.2, 0.3]])
+
+    with patch("src.nodes.rag_classification._get_embedding_function", return_value=mock_ef):
+        result = _embed_query("CISCO SWITCH 24P")
+
+    mock_ef.assert_called_once_with(["CISCO SWITCH 24P"])
+    assert result == [0.1, 0.2, 0.3]

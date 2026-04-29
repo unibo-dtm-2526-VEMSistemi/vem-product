@@ -37,7 +37,7 @@ def test_db_lookup_found():
         "product_family": "SWITCH",
     }])
 
-    with patch("src.nodes.db_lookup.get_train_test_split", return_value=(mock_train_df, pd.DataFrame())), \
+    with patch("src.nodes.db_lookup.load_datasets", return_value=(pd.DataFrame(), mock_train_df)), \
          patch("src.nodes.db_lookup.get_article_info", return_value=MOCK_TRAIN_INFO):
         result = db_lookup_node(state)
 
@@ -60,7 +60,7 @@ def test_db_lookup_not_found():
         "error": None,
     }
 
-    with patch("src.nodes.db_lookup.get_train_test_split", return_value=(pd.DataFrame(), pd.DataFrame())), \
+    with patch("src.nodes.db_lookup.load_datasets", return_value=(pd.DataFrame(), pd.DataFrame())), \
          patch("src.nodes.db_lookup.get_article_info", return_value=None):
         result = db_lookup_node(state)
 
@@ -82,7 +82,7 @@ def test_db_lookup_preserves_other_state_fields():
         "error": None,
     }
 
-    with patch("src.nodes.db_lookup.get_train_test_split", return_value=(pd.DataFrame(), pd.DataFrame())), \
+    with patch("src.nodes.db_lookup.load_datasets", return_value=(pd.DataFrame(), pd.DataFrame())), \
          patch("src.nodes.db_lookup.get_article_info", return_value=MOCK_TRAIN_INFO):
         result = db_lookup_node(state)
 

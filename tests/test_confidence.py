@@ -24,3 +24,8 @@ def test_result_is_rounded_to_4_decimals():
 def test_penalty_for_hallucinated_code():
     result = compute_confidence(llm_confidence=60, cosine_distance=1.8, all_distances=[0.2, 0.5, 1.0, 1.8])
     assert result == 0.3
+
+
+def test_empty_distances_raises():
+    with pytest.raises(ValueError, match="at least one element"):
+        compute_confidence(llm_confidence=80, cosine_distance=0.5, all_distances=[])

@@ -4,10 +4,10 @@ import io
 import pandas as pd
 import pytest
 
-# Add backend/src/agentic_rag to sys.path so `from src.xxx import yyy` works
+# Add src/ to sys.path so internal bare imports (e.g. `from config import X`) resolve
 sys.path.insert(
     0,
-    os.path.join(os.path.dirname(__file__), "..", "src", "agentic_rag"),
+    os.path.join(os.path.dirname(__file__), "..", "src"),
 )
 
 

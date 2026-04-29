@@ -109,3 +109,23 @@ def test_initialize_vectorstore_force_rebuild():
 
     mock_lob_collection.delete.assert_called()
     mock_lob_collection.add.assert_called()
+
+
+def test_get_collections_returns_both():
+    """get_collections() returns a (lob_collection, assoc_collection) tuple."""
+    mock_chroma_client = MagicMock()
+    mock_lob_col = MagicMock()
+    mock_assoc_col = MagicMock()
+    mock_chroma_client.get_or_create_collection.side_effect = [mock_lob_col, mock_assoc_col]
+    mock_ef = MagicMock()
+
+    with patch("chromadb.PersistentClient", return_value=mock_chroma_client), \
+         patch("chromadb.utils.embedding_functions.SentenceTransformerEmbeddingFunction", return_value=mock_ef):
+        from src import vectorstore_setup
+        vectorstore_setup._chroma_client = None
+        vectorstore_setup._embedding_function = None
+        lob_col, assoc_col = vectorstore_setup.get_collections()
+
+    assert lob_col is mock_lob_col
+    assert assoc_col is mock_assoc_col
+    assert mock_chroma_client.get_or_create_collection.call_count == 2

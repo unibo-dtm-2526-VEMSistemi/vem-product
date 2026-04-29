@@ -109,7 +109,7 @@ Run all cells. Set `SAMPLE_SIZE = 100` (default) for a quick run or increase for
 ## Tests
 
 ```bash
-python -m pytest tests/agentic_rag/ -v
+python -m pytest tests/ -v
 ```
 
 ## Configuration
