@@ -1,0 +1,29 @@
+...*** RAG MODEL v1 ***...
+=== WITH WEB ENRICHMENT ===
+  top1_accuracy: 0.2
+  top3_accuracy: 0.27
+  inventory_accuracy_when_top1_correct: 0.8
+  mean_confidence_correct: 0.8981
+  mean_confidence_incorrect: 0.5298
+
+=== WITHOUT WEB ENRICHMENT ===
+  top1_accuracy: 0.33
+  top3_accuracy: 0.47
+  inventory_accuracy_when_top1_correct: 0.9091
+  mean_confidence_correct: 0.9139
+  mean_confidence_incorrect: 0.5037
+
+...*** RAG MODEL v2 ***...
+=== WITH WEB ENRICHMENT ===
+  top1_accuracy: 0.37
+  top3_accuracy: 0.46
+  inventory_accuracy_when_top1_correct: 0.8649
+  mean_confidence_correct: 0.9197
+  mean_confidence_incorrect: 0.6619
+
+=== WITHOUT WEB ENRICHMENT ===
+  top1_accuracy: 0.46
+  top3_accuracy: 0.52
+  inventory_accuracy_when_top1_correct: 0.9783
+  mean_confidence_correct: 0.9045
+  mean_confidence_incorrect: 0.6105

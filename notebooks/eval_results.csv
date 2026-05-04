@@ -1,101 +1,101 @@
 article_code,true_lob,true_inventory,pred_lob_1,pred_inventory_1,confidence_1,pred_lobs_top3,correct_top1,correct_top3
-OS01137233,6003,Inventario,6012,Non in inventario,0.925,"['6012', '3002', '3015']",False,False
-SP-PSU-4A,24001,Inventario,6004,Inventario,0.7335,"['6004', '6001', '6029']",False,False
-L-SX-SERIES-PAK,4008,Inventario,3031,Non in inventario,0.9108,"['3031', '3032', '6007']",False,False
-MEL-202/SW,4009,Inventario,4009,Inventario,0.925,"['4009', '4002', '3004']",True,True
-A-MST-CVI-RMS-ENT,4015,Non in inventario,4008,Non in inventario,0.8775,"['4008', '3002', '3015']",False,False
-AR8603A,17001,Inventario,2002,Inventario,0.61,"['2002', '3043', '2001']",False,False
-ATM73CW,4009,Inventario,4002,Inventario,0.3,"['4002', '3045', '3010']",False,False
-SW-FBRCP-SUBS-C190,3014,Inventario,3002,Inventario,0.325,"['3002', '3015', '3011']",False,False
-1162125-03,1002,Inventario,4002,Inventario,0.3,"['4002', '2005', '3004']",False,False
-DI-16,24001,Inventario,2005,Inventario,0.225,"['2005', '2002', '3007']",False,False
-359-06866,3002,Inventario,3015,Inventario,0.88,"['3015', '3002', '3016']",False,True
-WALIMLED020/24,24002,Inventario,3015,Non in inventario,0.475,"['3015', '3016', '3002']",False,False
-XKIT0092,1006,Inventario,4002,Inventario,0.425,"['4002', '2005', '3010']",False,False
-GORN812,1002,Inventario,4002,Inventario,0.275,"['4002', '3007', '3010']",False,False
-1-1671157-2,1001,Inventario,2005,Inventario,0.425,"['2005', '4002', '3007']",False,False
-GWGW46435F,1002,Inventario,4002,Inventario,0.325,"['4002', '2002', '2005']",False,False
-WS-C4506-E,2002,Inventario,2005,Inventario,0.425,"['2005', '4002', '3010']",False,False
-X-52197-00-0E-C,3014,Inventario,3010,Inventario,0.7962,"['3010', '2002', '2015']",False,False
-C9200-DNA-A-48-3Y,2002,Inventario,3003,Non in inventario,0.3,"['3003', '3015', '2016']",False,False
-CS-DESKPRO-K9,4008,Inventario,4017,Inventario,0.35,"['4017', '5003', '2002']",False,False
-P48818-B21,3010,Inventario,3010,Inventario,0.925,"['3010', '2005', '4002']",True,True
-FC-10-F200F-585-0212,6007,Non in inventario,6007,Non in inventario,0.925,"['6007', '6013', '3015']",True,True
-535-8275,24001,Inventario,4002,Inventario,0.7175,"['4002', '3007', '3010']",False,False
-81495,3005,Inventario,3031,Inventario,0.7122,"['3031', '6004', '3005']",False,True
-IM-A-SP-B-AA,4004,Inventario,3002,Non in inventario,0.25,"['3002', '3015', '2015']",False,False
-FTM-ELIC-25,6007,Inventario,3002,Inventario,0.35,"['3002', '1016', '4004']",False,False
-UCSC-RAID-220M6,3009,Inventario,3009,Inventario,0.975,"['3009', '3030', '2002']",True,True
-VO01191556,6002,Inventario,6026,Non in inventario,0.425,"['6026', '3015', '3002']",False,False
-X1161A-C,3014,Inventario,2002,Inventario,0.9348,"['2002', '2005', '4002']",False,False
-EB28020330999200,1008,Inventario,2002,Inventario,0.6134,"['2002', '3005', '3007']",False,False
-66PT-HDBT-200,4009,Inventario,4002,Inventario,0.5,"['4002', '3007', '3999']",False,False
-AIM-ATM,2003,Inventario,2003,Inventario,0.9503,"['2003', '2002', '2001']",True,True
-C9300L-24P-4G-E,2001,Inventario,2015,Inventario,0.35,"['2015', '4002', '2005']",False,False
-B08C5JC4TB,99999,Inventario,4002,Inventario,0.425,"['4002', '2005', '17001']",False,False
-DS-C9148T-24EK9,2002,Inventario,2002,Inventario,0.975,"['2002', '2003', '2015']",True,True
-1-2153052-0,1001,Inventario,4002,Inventario,0.425,"['4002', '1001', '24001']",False,True
-VG202-RF,4005,Inventario,2002,Inventario,0.425,"['2002', '4004', '4008']",False,False
-775612-B21,3010,Inventario,3010,Inventario,0.8914,"['3010', '3009', '2005']",True,True
-CEM1900.21,1002,Inventario,2005,Inventario,0.3,"['2005', '3030', '3010']",False,False
-N9K-C93180-FX3-B8C,2001,Inventario,2002,Inventario,0.975,"['2002', '4002', '1002']",False,False
-AEP0070,1006,Inventario,4002,Inventario,0.425,"['4002', '1004', '3007']",False,False
-UCSC-O-ID10GC-D,3009,Inventario,3007,Inventario,0.325,"['3007', '3010', '4002']",False,False
-EPDU1016M,17001,Inventario,4002,Inventario,0.325,"['4002', '3007', '3999']",False,False
-C9200L-24T-4G-E,2002,Inventario,2002,Inventario,0.9351,"['2002', '2018', '3030']",True,True
-CPAP-NGSM410,6002,Inventario,6029,Inventario,0.425,"['6029', '2002', '2018']",False,False
-IE3100_SW,2002,Inventario,2002,Inventario,0.975,"['2002', '3003', '3002']",True,True
-IM-EXTRADISC.,4004,Non in inventario,20006,Non in inventario,0.6926,"['20006', '3015', '3016']",False,False
-1451253-15,1002,Inventario,4002,Non in inventario,0.425,"['4002', '3007', '2005']",False,False
-FW2ELQ1Q1NNM001,1008,Inventario,4002,Inventario,0.325,"['4002', '2005', '3007']",False,False
-FC-10-F433F-2470236,6007,Non in inventario,6007,Non in inventario,0.925,"['6007', '6013', '5003']",True,True
-AFF-C190A-004-SC,3014,Inventario,3030,Inventario,0.375,"['3030', '4009', '3007']",False,False
-RC-6K-HW-01,3039,Inventario,2002,Inventario,0.375,"['2002', '2003', '4002']",False,False
-USB2CC3M,4007,Inventario,1002,Inventario,0.6381,"['1002', '2015', '3030']",False,False
-KDK50F,17001,Inventario,24001,Inventario,0.9103,"['24001', '4002', '2005']",False,False
-APZE-A100M,1006,Inventario,4002,Non in inventario,0.375,"['4002', '2005', '4004']",False,False
-SP530P LED50S/840,24002,Inventario,4002,Inventario,0.275,"['4002', '2005', '3004']",False,False
-LEGAM075Z,1002,Inventario,4002,Inventario,0.3,"['4002', '1011', '2005']",False,False
-FAS2020A-NS-R5,3014,Inventario,6002,Inventario,0.7879,"['6002', '2020', '5003']",False,False
-CGM-NIS2-PVT-A1,15007,Non in inventario,6003,Inventario,0.925,"['6003', '6012', '5003']",False,False
-OS01141932,6003,Inventario,6012,Non in inventario,0.925,"['6012', '3015', '3016']",False,False
-FPR1010T-SBE,6001,Inventario,6001,Inventario,0.975,"['6001', '6029', '6030']",True,True
-R8N88A,2005,Inventario,2005,Inventario,0.975,"['2005', '2002', '3010']",True,True
-CS-PWR-INJ-30W,4008,Inventario,2002,Inventario,0.873,"['2002', '2018', '4017']",False,False
-V10KG4R2-0-XX00-X-N,6009,Inventario,2005,Inventario,0.35,"['2005', '4002', '3010']",False,False
-CPSB-NGFW-3800-2Y.,6002,Non in inventario,6001,Non in inventario,0.35,"['6001', '6006', '6004']",False,False
-HU4B2A4#R2M,3010,Non in inventario,3010,Inventario,0.875,"['3010', '2005', '3019']",True,True
-2675908,3004,Inventario,4002,Inventario,0.325,"['4002', '3030', '2005']",False,False
-UCS-CPU-I8444H,3009,Inventario,4002,Inventario,0.425,"['4002', '3010', '3007']",False,False
-CE255X,3004,Inventario,4002,Inventario,0.35,"['4002', '3004', '4009']",False,True
-WS-C2960+48TC-L,2002,Inventario,2002,Inventario,1.0,"['2002', '2015', '5003']",True,True
-A200,4009,Inventario,4002,Inventario,0.425,"['4002', '3007', '3999']",False,False
-SMLD220Z,3004,Inventario,4002,Inventario,0.425,"['4002', '2005', '3007']",False,False
-0866-001,2013,Inventario,6006,Inventario,0.3,"['6006', '1014', '4002']",False,False
-VMW-VS6-FND-K9,4004,Inventario,4017,Non in inventario,0.375,"['4017', '2018', '6001']",False,False
-PAN-SADM-36M-S2-R,20001,Non in inventario,6002,Non in inventario,0.425,"['6002', '6004', '2014']",False,False
-L-ASA-SSL-10,6001,Inventario,6007,Non in inventario,0.9579,"['6007', '6017', '5999']",False,False
-RS-BT-FUB-PE-PP,3039,Non in inventario,3015,Non in inventario,0.375,"['3015', '3002', '3016']",False,False
-A34V-600-850-UNI.P,3035,Inventario,2015,Inventario,0.9022,"['2015', '4002', '3045']",False,False
-21FF036CDZ,17001,Inventario,6004,Inventario,0.425,"['6004', '6025', '3045']",False,False
-L-CSR-10M-AX-3S=,2001,Inventario,4015,Non in inventario,0.5743,"['4015', '2008', '3999']",False,False
-AP860A,2005,Inventario,3010,Inventario,0.925,"['3010', '2005', '4002']",False,True
-C9200L-DNA-E-24,2003,Inventario,2003,Non in inventario,1.0,"['2003', '2016', '6025']",True,True
-C9K-F2-SSD-240GB,2002,Inventario,3030,Inventario,0.425,"['3030', '3004', '2002']",False,True
-ICW-1000G-CE,4001,Inventario,4001,Inventario,0.35,"['4001', '2001', '5003']",True,True
-D9999210399,99001,Inventario,2005,Inventario,0.6339,"['2005', '2008', '1014']",False,False
-C-RFID-1R,2006,Inventario,2003,Inventario,0.7764,"['2003', '2001', '2002']",False,False
-C8500-ACCKIT-19,2002,Inventario,2003,Inventario,0.9167,"['2003', '2002', '4008']",False,True
-MA-PWR-CORD-EU-O,2001,Inventario,2001,Inventario,0.7835,"['2001', '2002', '2003']",True,True
-F6.FG20201,2013,Inventario,99001,Inventario,0.9374,"['99001', '4002', '2005']",False,False
-MS350-24P-HW,2016,Inventario,2005,Inventario,0.425,"['2005', '4002', '3007']",False,False
-20EV000RIX,3004,Inventario,4002,Inventario,0.425,"['4002', '2005', '3010']",False,False
-LIC-MS130-24-7Y,2016,Inventario,2016,Non in inventario,0.85,"['2016', '3002', '3015']",True,True
-AR4038IX432,17001,Inventario,4002,Inventario,0.375,"['4002', '3007', '2008']",False,False
-HDMM1MP,4007,Inventario,4009,Inventario,0.825,"['4009', '4008', '1015']",False,False
-66IS2611-010,4009,Inventario,4002,Inventario,0.425,"['4002', '3007', '2002']",False,False
-CS-T10-TS+,4008,Inventario,2002,Inventario,0.15,"['2002', '4017', '5003']",False,False
-C08-264,3004,Inventario,4002,Inventario,0.7477,"['4002', '2005', '3999']",False,False
-C9200L-48T-4G-E,2002,Inventario,2002,Inventario,0.975,"['2002', '4002', '3007']",True,True
-HPE-EOSL-96-ISS,3004,Non in inventario,2005,Inventario,0.425,"['2005', '4002', '3010']",False,False
-FTS:HP08NS20SE1379,3004,Inventario,3004,Non in inventario,0.7775,"['3004', '3036', '3019']",True,True
+OS01137233,6003,Inventario,6012,Non in inventario,0.975,"['6012', '6026', '2014']",False,False
+SP-PSU-4A,24001,Inventario,6004,Inventario,0.6981,"['6004', '6001', '6031']",False,False
+L-SX-SERIES-PAK,4008,Inventario,2002,Inventario,0.425,"['2002', '5003', '4017']",False,False
+MEL-202/SW,4009,Inventario,4009,Inventario,0.975,"['4009', '4002', '3007']",True,True
+A-MST-CVI-RMS-ENT,4015,Non in inventario,4008,Non in inventario,0.9,"['4008', '4018', '4017']",False,False
+AR8603A,17001,Inventario,17001,Inventario,0.925,"['17001', '1008', '1001']",True,True
+ATM73CW,4009,Inventario,4009,Inventario,0.975,"['4009', '4008', '4004']",True,True
+SW-FBRCP-SUBS-C190,3014,Inventario,3022,Non in inventario,0.9246,"['3022', '3014', '3030']",False,True
+1162125-03,1002,Inventario,1002,Inventario,0.975,"['1002', '4002', '3007']",True,True
+DI-16,24001,Inventario,1012,Inventario,0.3,"['1012', '2002', '3007']",False,False
+359-06866,3002,Inventario,3031,Inventario,0.7097,"['3031', '3015', '3002']",False,True
+WALIMLED020/24,24002,Inventario,1011,Inventario,0.475,"['1011', '1012', '3007']",False,False
+XKIT0092,1006,Inventario,4002,Inventario,0.3,"['4002', '3035', '3010']",False,False
+GORN812,1002,Inventario,1002,Inventario,0.8797,"['1002', '1001', '3007']",True,True
+1-1671157-2,1001,Inventario,3035,Inventario,0.425,"['3035', '3030', '4002']",False,False
+GWGW46435F,1002,Inventario,2002,Inventario,0.8882,"['2002', '3030', '4002']",False,False
+WS-C4506-E,2002,Inventario,2002,Inventario,0.9413,"['2002', '2003', '3043']",True,True
+X-52197-00-0E-C,3014,Inventario,2002,Inventario,0.875,"['2002', '2001', '5003']",False,False
+C9200-DNA-A-48-3Y,2002,Inventario,2002,Non in inventario,0.425,"['2002', '2018', '5003']",True,True
+CS-DESKPRO-K9,4008,Inventario,4008,Inventario,0.925,"['4008', '2006', '4017']",True,True
+P48818-B21,3010,Inventario,3010,Inventario,1.0,"['3010', '2005', '3035']",True,True
+FC-10-F200F-585-0212,6007,Non in inventario,6007,Non in inventario,0.9252,"['6007', '6013', '3019']",True,True
+535-8275,24001,Inventario,3004,Inventario,0.8699,"['3004', '4002', '1014']",False,False
+81495,3005,Inventario,4018,Non in inventario,0.3,"['4018', '6030', '2002']",False,False
+IM-A-SP-B-AA,4004,Inventario,2003,Non in inventario,0.425,"['2003', '5003', '5999']",False,False
+FTM-ELIC-25,6007,Inventario,6007,Non in inventario,0.925,"['6007', '6011', '6004']",True,True
+UCSC-RAID-220M6,3009,Inventario,3030,Inventario,0.7022,"['3030', '2002', '6001']",False,False
+VO01191556,6002,Inventario,6012,Non in inventario,0.975,"['6012', '6026', '6017']",False,False
+X1161A-C,3014,Inventario,2003,Inventario,0.6779,"['2003', '3035', '3036']",False,False
+EB28020330999200,1008,Inventario,1001,Inventario,0.6835,"['1001', '2002', '3004']",False,False
+66PT-HDBT-200,4009,Inventario,3004,Inventario,0.6259,"['3004', '4002', '4008']",False,False
+AIM-ATM,2003,Inventario,2002,Inventario,0.8432,"['2002', '2003', '2015']",False,True
+C9300L-24P-4G-E,2001,Inventario,2002,Inventario,0.975,"['2002', '2003', '2001']",False,True
+B08C5JC4TB,99999,Inventario,1002,Inventario,0.7968,"['1002', '4002', '2003']",False,False
+DS-C9148T-24EK9,2002,Inventario,2002,Inventario,0.975,"['2002', '3030', '2003']",True,True
+1-2153052-0,1001,Inventario,4002,Inventario,0.425,"['4002', '3007', '4004']",False,False
+VG202-RF,4005,Inventario,4001,Inventario,0.8901,"['4001', '4005', '2002']",False,True
+775612-B21,3010,Inventario,3010,Inventario,0.925,"['3010', '2005', '3007']",True,True
+CEM1900.21,1002,Inventario,1002,Inventario,0.975,"['1002', '1008', '1001']",True,True
+N9K-C93180-FX3-B8C,2001,Inventario,2002,Inventario,0.9577,"['2002', '2003', '3030']",False,False
+AEP0070,1006,Inventario,1002,Inventario,0.8895,"['1002', '1008', '4002']",False,False
+UCSC-O-ID10GC-D,3009,Inventario,2006,Inventario,0.8437,"['2006', '2002', '3004']",False,False
+EPDU1016M,17001,Inventario,17007,Inventario,0.6062,"['17007', '4002', '1012']",False,False
+C9200L-24T-4G-E,2002,Inventario,2002,Inventario,1.0,"['2002', '2001', '2003']",True,True
+CPAP-NGSM410,6002,Inventario,6002,Inventario,0.975,"['6002', '6029', '6030']",True,True
+IE3100_SW,2002,Inventario,2003,Non in inventario,0.4727,"['2003', '2002', '3003']",False,True
+IM-EXTRADISC.,4004,Non in inventario,5003,Non in inventario,0.375,"['5003', '6004', '5999']",False,False
+1451253-15,1002,Inventario,1002,Inventario,0.975,"['1002', '4002', '3005']",True,True
+FW2ELQ1Q1NNM001,1008,Inventario,1008,Inventario,0.975,"['1008', '4002', '3999']",True,True
+FC-10-F433F-2470236,6007,Non in inventario,6007,Non in inventario,0.9688,"['6007', '6013', '6012']",True,True
+AFF-C190A-004-SC,3014,Inventario,3014,Inventario,0.975,"['3014', '3030', '2003']",True,True
+RC-6K-HW-01,3039,Inventario,2002,Inventario,0.8852,"['2002', '2003', '2006']",False,False
+USB2CC3M,4007,Inventario,3004,Inventario,0.85,"['3004', '4009', '4002']",False,False
+KDK50F,17001,Inventario,1011,Inventario,0.375,"['1011', '1012', '1014']",False,False
+APZE-A100M,1006,Inventario,1014,Inventario,0.425,"['1014', '1011', '1012']",False,False
+SP530P LED50S/840,24002,Inventario,4002,Inventario,0.375,"['4002', '1012', '3007']",False,False
+LEGAM075Z,1002,Inventario,1002,Inventario,0.975,"['1002', '1001', '4002']",True,True
+FAS2020A-NS-R5,3014,Inventario,3014,Inventario,0.9439,"['3014', '2002', '3035']",True,True
+CGM-NIS2-PVT-A1,15007,Non in inventario,6004,Non in inventario,0.7989,"['6004', '15008', '6017']",False,False
+OS01141932,6003,Inventario,6017,Non in inventario,0.35,"['6017', '6001', '6029']",False,False
+FPR1010T-SBE,6001,Inventario,6001,Non in inventario,0.7925,"['6001', '6029', '6030']",True,True
+R8N88A,2005,Inventario,2005,Inventario,0.925,"['2005', '2002', '2001']",True,True
+CS-PWR-INJ-30W,4008,Inventario,2002,Inventario,0.9045,"['2002', '2013', '2001']",False,False
+V10KG4R2-0-XX00-X-N,6009,Inventario,6009,Inventario,0.925,"['6009', '6016', '6004']",True,True
+CPSB-NGFW-3800-2Y.,6002,Non in inventario,6011,Non in inventario,0.975,"['6011', '6001', '6030']",False,False
+HU4B2A4#R2M,3010,Non in inventario,3010,Non in inventario,0.975,"['3010', '2005', '3019']",True,True
+2675908,3004,Inventario,4002,Inventario,0.7561,"['4002', '3030', '3035']",False,False
+UCS-CPU-I8444H,3009,Inventario,3010,Inventario,0.425,"['3010', '3030', '4002']",False,False
+CE255X,3004,Inventario,3010,Inventario,0.6687,"['3010', '4002', '2005']",False,False
+WS-C2960+48TC-L,2002,Inventario,2002,Inventario,0.975,"['2002', '2003', '3030']",True,True
+A200,4009,Inventario,1011,Inventario,0.475,"['1011', '4002', '2003']",False,False
+SMLD220Z,3004,Inventario,4008,Inventario,0.8098,"['4008', '4002', '3010']",False,False
+0866-001,2013,Inventario,1015,Inventario,0.425,"['1015', '1012', '4009']",False,False
+VMW-VS6-FND-K9,4004,Inventario,4017,Non in inventario,0.475,"['4017', '2002', '5003']",False,False
+PAN-SADM-36M-S2-R,20001,Non in inventario,20006,Non in inventario,0.6388,"['20006', '6004', '6009']",False,False
+L-ASA-SSL-10,6001,Inventario,6001,Non in inventario,0.7875,"['6001', '6025', '6009']",True,True
+RS-BT-FUB-PE-PP,3039,Non in inventario,3002,Non in inventario,0.7188,"['3002', '3015', '3016']",False,False
+A34V-600-850-UNI.P,3035,Inventario,2015,Inventario,0.7718,"['2015', '1011', '1012']",False,False
+21FF036CDZ,17001,Inventario,6001,Inventario,0.663,"['6001', '6004', '6006']",False,False
+L-CSR-10M-AX-3S=,2001,Inventario,4018,Non in inventario,0.375,"['4018', '2019', '6030']",False,False
+AP860A,2005,Inventario,3010,Inventario,0.875,"['3010', '2005', '3035']",False,True
+C9200L-DNA-E-24,2003,Inventario,2018,Non in inventario,0.425,"['2018', '5003', '2002']",False,False
+C9K-F2-SSD-240GB,2002,Inventario,2002,Inventario,0.775,"['2002', '3009', '3030']",True,True
+ICW-1000G-CE,4001,Inventario,4001,Inventario,0.8947,"['4001', '2001', '2002']",True,True
+D9999210399,99001,Inventario,1011,Inventario,0.475,"['1011', '1012', '1014']",False,False
+C-RFID-1R,2006,Inventario,2002,Inventario,0.975,"['2002', '2006', '2003']",False,True
+C8500-ACCKIT-19,2002,Inventario,2002,Inventario,0.7944,"['2002', '4008', '3030']",True,True
+MA-PWR-CORD-EU-O,2001,Inventario,2001,Inventario,0.925,"['2001', '2002', '5003']",True,True
+F6.FG20201,2013,Inventario,4002,Inventario,0.25,"['4002', '3010', '3035']",False,False
+MS350-24P-HW,2016,Inventario,2002,Inventario,0.937,"['2002', '2001', '2003']",False,False
+20EV000RIX,3004,Inventario,3004,Inventario,0.975,"['3004', '2005', '4002']",True,True
+LIC-MS130-24-7Y,2016,Inventario,2016,Non in inventario,0.925,"['2016', '4017', '5003']",True,True
+AR4038IX432,17001,Inventario,4002,Inventario,0.375,"['4002', '3035', '4007']",False,False
+HDMM1MP,4007,Inventario,4009,Inventario,0.8919,"['4009', '4008', '1002']",False,False
+66IS2611-010,4009,Inventario,1002,Inventario,0.9424,"['1002', '4009', '3004']",False,True
+CS-T10-TS+,4008,Inventario,4008,Inventario,0.975,"['4008', '2006', '2002']",True,True
+C08-264,3004,Inventario,3004,Inventario,0.8755,"['3004', '3007', '4008']",True,True
+C9200L-48T-4G-E,2002,Inventario,2002,Inventario,0.975,"['2002', '2003', '2001']",True,True
+HPE-EOSL-96-ISS,3004,Non in inventario,2005,Inventario,0.9165,"['2005', '3010', '2003']",False,False
+FTS:HP08NS20SE1379,3004,Inventario,3036,Non in inventario,0.265,"['3036', '6018', '6016']",False,False
