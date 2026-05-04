@@ -1,4 +1,6 @@
-def compute_confidence(llm_confidence: int, cosine_distance: float, all_distances: list[float]) -> float:
+def compute_confidence(
+    llm_confidence: int, cosine_distance: float, all_distances: list[float]
+) -> float:
     """Composite confidence: 0.5 * normalized_cosine + 0.5 * normalized_llm
     ChromaDB cosine space distances in [0, 2]. similarity = 1 - distance.
     """

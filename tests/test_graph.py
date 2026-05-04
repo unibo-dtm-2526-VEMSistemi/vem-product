@@ -1,5 +1,4 @@
-import pytest
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch
 
 
 def test_classify_article_found():
@@ -21,19 +20,39 @@ def test_classify_article_found():
     mock_web_result = {"web_enrichment": "Hardware: switch Cisco."}
     mock_rag_result = {
         "classification": [
-            {"rank": 1, "lob_code": "02002", "lob_name": "APPARATI CISCO LAN",
-             "inventory": "Inventario", "explanation": "Switch Cisco.", "confidence": 0.88},
-            {"rank": 2, "lob_code": "04001", "lob_name": "TELEFONIA IP",
-             "inventory": "Inventario", "explanation": "Telefonia.", "confidence": 0.55},
-            {"rank": 3, "lob_code": "01001", "lob_name": "CABLAGGI",
-             "inventory": "Inventario", "explanation": "Cablaggi.", "confidence": 0.30},
+            {
+                "rank": 1,
+                "lob_code": "02002",
+                "lob_name": "APPARATI CISCO LAN",
+                "inventory": "Inventario",
+                "explanation": "Switch Cisco.",
+                "confidence": 0.88,
+            },
+            {
+                "rank": 2,
+                "lob_code": "04001",
+                "lob_name": "TELEFONIA IP",
+                "inventory": "Inventario",
+                "explanation": "Telefonia.",
+                "confidence": 0.55,
+            },
+            {
+                "rank": 3,
+                "lob_code": "01001",
+                "lob_name": "CABLAGGI",
+                "inventory": "Inventario",
+                "explanation": "Cablaggi.",
+                "confidence": 0.30,
+            },
         ],
         "retrieval_results": [],
     }
 
-    with patch("src.graph.db_lookup_node", return_value=mock_db_result), \
-         patch("src.graph.web_enrichment_node", return_value=mock_web_result), \
-         patch("src.graph.rag_classification_node", return_value=mock_rag_result):
+    with (
+        patch("src.graph.db_lookup_node", return_value=mock_db_result),
+        patch("src.graph.web_enrichment_node", return_value=mock_web_result),
+        patch("src.graph.rag_classification_node", return_value=mock_rag_result),
+    ):
         result = classify_article("ART-001")
 
     assert result["article_code"] == "ART-001"

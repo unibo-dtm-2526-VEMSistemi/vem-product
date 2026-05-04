@@ -1,7 +1,6 @@
 import io
 import pandas as pd
-import pytest
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch
 
 
 # We patch pandas.read_csv so no real files needed
@@ -21,6 +20,7 @@ ART-004,CISCO IP PHONE 7920,4001,Inventario,ART,,CISCO,PHONE,,40,18,TELEFONIA IP
 ART-005,CABLING ALT KIT,1002,Non in inventario,ART,,GENERIC,CABLE,,35,16,CABLAGGIO ALTERNATIVO,cabling alt kit,CABLING ALT KIT brand:GENERIC family:CABLE
 """
 
+
 def _make_mock_read_csv(lob_csv=LOB_CSV, articles_csv=ARTICLES_CSV):
     lob_df = pd.read_csv(io.StringIO(lob_csv))
     articles_df = pd.read_csv(io.StringIO(articles_csv))
@@ -37,6 +37,7 @@ def _make_mock_read_csv(lob_csv=LOB_CSV, articles_csv=ARTICLES_CSV):
 
 def test_load_datasets_returns_two_dataframes():
     from src import data_loader
+
     # Reset cache so patch takes effect
     data_loader.load_datasets.cache_clear()
 
@@ -50,6 +51,7 @@ def test_load_datasets_returns_two_dataframes():
 
 def test_load_datasets_zero_pads_lob_codes():
     from src import data_loader
+
     data_loader.load_datasets.cache_clear()
 
     with patch("src.data_loader.pd.read_csv", side_effect=_make_mock_read_csv()):
@@ -57,16 +59,28 @@ def test_load_datasets_zero_pads_lob_codes():
 
     assert "lob_code_str" in articles_df.columns
     # Integer 2002 → "02002" (5 chars matching max len in lob_codes.csv)
-    assert articles_df.loc[articles_df["codice_articolo"] == "ART-001", "lob_code_str"].iloc[0] == "02002"
+    assert (
+        articles_df.loc[
+            articles_df["codice_articolo"] == "ART-001", "lob_code_str"
+        ].iloc[0]
+        == "02002"
+    )
 
 
 def test_load_datasets_drops_empty_rag_text():
     """Rows where rag_text is NaN/empty must be dropped."""
-    articles_with_nan = ARTICLES_CSV + "ART-006,EMPTY TEXT,2002,Inventario,ART,,CISCO,SWITCH,,50,20,APPARATI CISCO LAN,empty,\n"
+    articles_with_nan = (
+        ARTICLES_CSV
+        + "ART-006,EMPTY TEXT,2002,Inventario,ART,,CISCO,SWITCH,,50,20,APPARATI CISCO LAN,empty,\n"
+    )
     from src import data_loader
+
     data_loader.load_datasets.cache_clear()
 
-    with patch("src.data_loader.pd.read_csv", side_effect=_make_mock_read_csv(articles_csv=articles_with_nan)):
+    with patch(
+        "src.data_loader.pd.read_csv",
+        side_effect=_make_mock_read_csv(articles_csv=articles_with_nan),
+    ):
         _, articles_df = data_loader.load_datasets()
 
     # ART-006 has empty rag_text and should be dropped
@@ -75,6 +89,7 @@ def test_load_datasets_drops_empty_rag_text():
 
 def test_get_train_test_split_proportions():
     from src import data_loader
+
     data_loader.load_datasets.cache_clear()
 
     with patch("src.data_loader.pd.read_csv", side_effect=_make_mock_read_csv()):
@@ -86,6 +101,7 @@ def test_get_train_test_split_proportions():
 
 def test_get_article_info_found():
     from src import data_loader
+
     data_loader.load_datasets.cache_clear()
 
     with patch("src.data_loader.pd.read_csv", side_effect=_make_mock_read_csv()):
@@ -104,6 +120,7 @@ def test_get_article_info_found():
 
 def test_get_article_info_not_found():
     from src import data_loader
+
     data_loader.load_datasets.cache_clear()
 
     with patch("src.data_loader.pd.read_csv", side_effect=_make_mock_read_csv()):
@@ -117,16 +134,24 @@ def test_get_train_test_split_with_stratifiable_data():
     """When LOB codes have ≥2 samples each, sk_split path (lines 65-75) executes."""
     rows = []
     for i in range(1, 6):
-        rows.append(f"CISCO-{i:03d},CISCO SWITCH {i},2002,Inventario,ART,,CISCO,SWITCH,,50,20,APPARATI CISCO LAN,cisco switch {i},CISCO SWITCH {i}")
+        rows.append(
+            f"CISCO-{i:03d},CISCO SWITCH {i},2002,Inventario,ART,,CISCO,SWITCH,,50,20,APPARATI CISCO LAN,cisco switch {i},CISCO SWITCH {i}"
+        )
     for i in range(1, 6):
-        rows.append(f"HP-{i:03d},HP CABLE {i},1001,Inventario,ART,,HP,CABLE,,30,15,CABLAGGI COMMSCOPE,hp cable {i},HP CABLE {i}")
+        rows.append(
+            f"HP-{i:03d},HP CABLE {i},1001,Inventario,ART,,HP,CABLE,,30,15,CABLAGGI COMMSCOPE,hp cable {i},HP CABLE {i}"
+        )
     header = "codice_articolo,descrizione_articolo,lob_associata_cleaned,inventario,code_prefix,duration_months,brand_vendor,product_family,capacity_unit,desc_token_count,desc_char_len,lob_nome,description_norm,rag_text"
     articles_multi = header + "\n" + "\n".join(rows) + "\n"
 
     from src import data_loader
+
     data_loader.load_datasets.cache_clear()
 
-    with patch("src.data_loader.pd.read_csv", side_effect=_make_mock_read_csv(articles_csv=articles_multi)):
+    with patch(
+        "src.data_loader.pd.read_csv",
+        side_effect=_make_mock_read_csv(articles_csv=articles_multi),
+    ):
         train_df, test_df = data_loader.get_train_test_split()
 
     assert len(train_df) + len(test_df) == 10
@@ -135,6 +160,7 @@ def test_get_train_test_split_with_stratifiable_data():
 
 def test_get_lob_codes_returns_dataframe():
     from src import data_loader
+
     data_loader.load_datasets.cache_clear()
 
     with patch("src.data_loader.pd.read_csv", side_effect=_make_mock_read_csv()):

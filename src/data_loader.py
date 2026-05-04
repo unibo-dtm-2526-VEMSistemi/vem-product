@@ -88,8 +88,12 @@ def get_article_info(article_code: str, df: pd.DataFrame) -> dict | None:
         "lob_code_str": str(row.get("lob_code_str", "")),
         "lob_nome": str(row.get("lob_nome", "")),
         "inventario": str(row.get("inventario", "")),
-        "brand_vendor": str(row.get("brand_vendor", "")) if pd.notna(row.get("brand_vendor")) else "",
-        "product_family": str(row.get("product_family", "")) if pd.notna(row.get("product_family")) else "",
+        "brand_vendor": str(row.get("brand_vendor", ""))
+        if pd.notna(row.get("brand_vendor"))
+        else "",
+        "product_family": str(row.get("product_family", ""))
+        if pd.notna(row.get("product_family"))
+        else "",
     }
 
 

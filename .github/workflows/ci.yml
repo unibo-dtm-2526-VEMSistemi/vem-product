@@ -1,23 +1,24 @@
-name: Backend CI
+name: CI
 
 on:
   push:
     branches: [main, dev]
     paths:
-      - "backend/**"
-      - ".github/workflows/backend-ci.yml"
+      - "**/*.py"
+      - "requirements.txt"
+      - ".python-version"
+      - ".github/workflows/ci.yml"
   pull_request:
     branches: [main, dev]
     paths:
-      - "backend/**"
-      - ".github/workflows/backend-ci.yml"
+      - "**/*.py"
+      - "requirements.txt"
+      - ".python-version"
+      - ".github/workflows/ci.yml"
 
 jobs:
   lint-and-type-check:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: backend
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -25,9 +26,9 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version-file: "backend/.python-version"
+          python-version-file: ".python-version"
           cache: pip
-          cache-dependency-path: "backend/requirements.txt"
+          cache-dependency-path: "requirements.txt"
 
       - name: Install dependencies
         run: |
@@ -46,9 +47,6 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: backend
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -56,9 +54,9 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version-file: "backend/.python-version"
+          python-version-file: ".python-version"
           cache: pip
-          cache-dependency-path: "backend/requirements.txt"
+          cache-dependency-path: "requirements.txt"
 
       - name: Install dependencies
         run: |

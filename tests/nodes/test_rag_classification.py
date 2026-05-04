@@ -82,20 +82,39 @@ def _make_mock_collections(distances=None):
 
     mock_assoc = MagicMock()
     mock_assoc.query.return_value = {
-        "metadatas": [[
-            {"lob_code_str": "02002", "lob_nome": "APPARATI CISCO LAN", "inventario": "Inventario", "descrizione_articolo": "SWITCH 24P"},
-            {"lob_code_str": "04001", "lob_nome": "TELEFONIA IP", "inventario": "Inventario", "descrizione_articolo": "IP PHONE"},
-            {"lob_code_str": "01001", "lob_nome": "CABLAGGI", "inventario": "Inventario", "descrizione_articolo": "CABLE"},
-        ]],
+        "metadatas": [
+            [
+                {
+                    "lob_code_str": "02002",
+                    "lob_nome": "APPARATI CISCO LAN",
+                    "inventario": "Inventario",
+                    "descrizione_articolo": "SWITCH 24P",
+                },
+                {
+                    "lob_code_str": "04001",
+                    "lob_nome": "TELEFONIA IP",
+                    "inventario": "Inventario",
+                    "descrizione_articolo": "IP PHONE",
+                },
+                {
+                    "lob_code_str": "01001",
+                    "lob_nome": "CABLAGGI",
+                    "inventario": "Inventario",
+                    "descrizione_articolo": "CABLE",
+                },
+            ]
+        ],
         "distances": distances,
     }
 
     mock_lob = MagicMock()
     mock_lob.query.return_value = {
-        "metadatas": [[
-            {"lob_code": "02002", "name": "APPARATI CISCO LAN"},
-            {"lob_code": "04001", "name": "TELEFONIA IP"},
-        ]],
+        "metadatas": [
+            [
+                {"lob_code": "02002", "name": "APPARATI CISCO LAN"},
+                {"lob_code": "04001", "name": "TELEFONIA IP"},
+            ]
+        ],
         "distances": [[0.1, 0.3]],
     }
 
@@ -128,9 +147,14 @@ def test_rag_classification_node_happy_path():
     mock_llm = MagicMock()
     mock_llm.invoke.return_value = MagicMock(content=MOCK_VALID_LLM_RESPONSE)
 
-    with patch("src.nodes.rag_classification.get_collections", return_value=(mock_lob, mock_assoc)), \
-         patch("src.nodes.rag_classification.ChatOllama", return_value=mock_llm), \
-         patch("src.nodes.rag_classification._embed_query", return_value=[0.1] * 384):
+    with (
+        patch(
+            "src.nodes.rag_classification.get_collections",
+            return_value=(mock_lob, mock_assoc),
+        ),
+        patch("src.nodes.rag_classification.ChatOllama", return_value=mock_llm),
+        patch("src.nodes.rag_classification._embed_query", return_value=[0.1] * 384),
+    ):
         result = rag_classification_node(state)
 
     assert len(result["classification"]) == 3
@@ -165,9 +189,14 @@ def test_rag_classification_node_llm_failure():
     mock_llm = MagicMock()
     mock_llm.invoke.return_value = MagicMock(content="not valid json at all")
 
-    with patch("src.nodes.rag_classification.get_collections", return_value=(mock_lob, mock_assoc)), \
-         patch("src.nodes.rag_classification.ChatOllama", return_value=mock_llm), \
-         patch("src.nodes.rag_classification._embed_query", return_value=[0.1] * 384):
+    with (
+        patch(
+            "src.nodes.rag_classification.get_collections",
+            return_value=(mock_lob, mock_assoc),
+        ),
+        patch("src.nodes.rag_classification.ChatOllama", return_value=mock_llm),
+        patch("src.nodes.rag_classification._embed_query", return_value=[0.1] * 384),
+    ):
         result = rag_classification_node(state)
 
     # Should not crash; should set error and return empty or partial classification
@@ -180,7 +209,9 @@ def test_embed_query_calls_embedding_function():
 
     mock_ef = MagicMock(return_value=[[0.1, 0.2, 0.3]])
 
-    with patch("src.nodes.rag_classification._get_embedding_function", return_value=mock_ef):
+    with patch(
+        "src.nodes.rag_classification._get_embedding_function", return_value=mock_ef
+    ):
         result = _embed_query("CISCO SWITCH 24P")
 
     mock_ef.assert_called_once_with(["CISCO SWITCH 24P"])

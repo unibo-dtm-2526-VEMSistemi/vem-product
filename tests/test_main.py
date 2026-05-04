@@ -38,10 +38,12 @@ def test_rag_advise_contract() -> None:
         "error": None,
     }
 
-    with patch("src.api.classify_article", return_value=mock_result), \
-         patch("src.api.load_datasets", return_value=(None, None)), \
-         patch("src.api.get_train_test_split", return_value=(None, None)), \
-         patch("src.api.initialize_vectorstore"):
+    with (
+        patch("src.api.classify_article", return_value=mock_result),
+        patch("src.api.load_datasets", return_value=(None, None)),
+        patch("src.api.get_train_test_split", return_value=(None, None)),
+        patch("src.api.initialize_vectorstore"),
+    ):
         patched_client = TestClient(app)
         response = patched_client.post("/classify", json={"article_code": "ART-001"})
 

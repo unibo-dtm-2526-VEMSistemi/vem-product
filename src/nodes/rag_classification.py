@@ -61,7 +61,7 @@ def parse_qwen3_json(raw_output: str) -> dict:
 
     # Strip <think>...</think> — keep only content after last </think>
     if "</think>" in text:
-        text = text[text.rfind("</think>") + len("</think>"):]
+        text = text[text.rfind("</think>") + len("</think>") :]
 
     # Strip markdown code fences
     text = re.sub(r"```(?:json)?\s*", "", text)
@@ -72,14 +72,32 @@ def parse_qwen3_json(raw_output: str) -> dict:
     try:
         return json.loads(text)
     except json.JSONDecodeError as exc:
-        raise ValueError(f"Could not parse JSON from LLM output: {exc}\nRaw: {text[:500]}")
+        raise ValueError(
+            f"Could not parse JSON from LLM output: {exc}\nRaw: {text[:500]}"
+        )
 
 
 def _infer_inventory_filter(web_enrichment: str) -> str | None:
     """Return metadata filter value if enrichment clearly indicates hardware/software."""
     lower = web_enrichment.lower()
-    hardware_signals = {"hardware", "fisico", "physical", "appliance", "device", "dispositivo", "asset durevole"}
-    software_signals = {"software", "licenza", "license", "subscription", "abbonamento", "saas", "cloud"}
+    hardware_signals = {
+        "hardware",
+        "fisico",
+        "physical",
+        "appliance",
+        "device",
+        "dispositivo",
+        "asset durevole",
+    }
+    software_signals = {
+        "software",
+        "licenza",
+        "license",
+        "subscription",
+        "abbonamento",
+        "saas",
+        "cloud",
+    }
 
     has_hardware = any(s in lower for s in hardware_signals)
     has_software = any(s in lower for s in software_signals)
@@ -125,7 +143,9 @@ def _build_context(assoc_results: dict, lob_results: dict) -> tuple[str, list[fl
     lines.append("\n=== CODICI LOB DISPONIBILI (più rilevanti) ===")
     for i, (meta, dist) in enumerate(zip(lob_metadatas, lob_distances), 1):
         sim = round(1.0 - dist, 3)
-        lines.append(f"{i}. {meta.get('lob_code', '')} - {meta.get('name', '')} (similarity: {sim})")
+        lines.append(
+            f"{i}. {meta.get('lob_code', '')} - {meta.get('name', '')} (similarity: {sim})"
+        )
 
     return "\n".join(lines), all_distances
 
@@ -146,7 +166,10 @@ def _call_llm_with_retry(llm: ChatOllama, messages: list, state: AgentState) -> 
                     f"Rispondi SOLO con JSON valido con chiave 'classifications' contenente "
                     f"esattamente 3 oggetti con campi: lob_code, lob_name, inventory, explanation, llm_confidence."
                 )
-                messages = [SystemMessage(content=_SYSTEM_PROMPT), HumanMessage(content=simple_user)]
+                messages = [
+                    SystemMessage(content=_SYSTEM_PROMPT),
+                    HumanMessage(content=simple_user),
+                ]
             else:
                 raise
 
@@ -265,15 +288,17 @@ def rag_classification_node(state: AgentState) -> dict:
                 cosine_distance=cosine_dist,
                 all_distances=all_distances,
             )
-            suggestions.append({
-                "rank": rank,
-                "lob_code": lob_code,
-                "lob_name": cls.get("lob_name", ""),
-                "inventory": cls.get("inventory", ""),
-                "explanation": cls.get("explanation", ""),
-                "confidence": confidence,
-            })
-        suggestions.sort(key=lambda x: x.get('confidence'), reverse=True)
+            suggestions.append(
+                {
+                    "rank": rank,
+                    "lob_code": lob_code,
+                    "lob_name": cls.get("lob_name", ""),
+                    "inventory": cls.get("inventory", ""),
+                    "explanation": cls.get("explanation", ""),
+                    "confidence": confidence,
+                }
+            )
+        suggestions.sort(key=lambda x: x.get("confidence"), reverse=True)
         for idx, s in enumerate(suggestions):
             s["rank"] = idx + 1
         timings["G_confidence"] = time.perf_counter() - t0

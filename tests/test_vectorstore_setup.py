@@ -1,7 +1,6 @@
 import io
 import pandas as pd
-import pytest
-from unittest.mock import patch, MagicMock, call
+from unittest.mock import patch, MagicMock
 
 
 LOB_CSV = """LOB Code,Name
@@ -39,10 +38,16 @@ def test_initialize_vectorstore_creates_two_collections():
 
     mock_ef = MagicMock()
 
-    with patch("chromadb.PersistentClient", return_value=mock_chroma_client), \
-         patch("chromadb.utils.embedding_functions.SentenceTransformerEmbeddingFunction", return_value=mock_ef):
+    with (
+        patch("chromadb.PersistentClient", return_value=mock_chroma_client),
+        patch(
+            "chromadb.utils.embedding_functions.SentenceTransformerEmbeddingFunction",
+            return_value=mock_ef,
+        ),
+    ):
         # Import after patching
         import src.vectorstore_setup
+
         src.vectorstore_setup._chroma_client = None
         src.vectorstore_setup._embedding_function = None
         src.vectorstore_setup.initialize_vectorstore(train_df, lob_df)
@@ -67,9 +72,15 @@ def test_initialize_vectorstore_skips_if_populated():
         mock_assoc_collection,
     ]
 
-    with patch("chromadb.PersistentClient", return_value=mock_chroma_client), \
-         patch("chromadb.utils.embedding_functions.SentenceTransformerEmbeddingFunction", return_value=MagicMock()):
+    with (
+        patch("chromadb.PersistentClient", return_value=mock_chroma_client),
+        patch(
+            "chromadb.utils.embedding_functions.SentenceTransformerEmbeddingFunction",
+            return_value=MagicMock(),
+        ),
+    ):
         from src import vectorstore_setup
+
         # Reset module-level client cache
         vectorstore_setup._chroma_client = None
         vectorstore_setup._embedding_function = None
@@ -100,9 +111,15 @@ def test_initialize_vectorstore_force_rebuild():
         mock_assoc_collection,
     ]
 
-    with patch("chromadb.PersistentClient", return_value=mock_chroma_client), \
-         patch("chromadb.utils.embedding_functions.SentenceTransformerEmbeddingFunction", return_value=MagicMock()):
+    with (
+        patch("chromadb.PersistentClient", return_value=mock_chroma_client),
+        patch(
+            "chromadb.utils.embedding_functions.SentenceTransformerEmbeddingFunction",
+            return_value=MagicMock(),
+        ),
+    ):
         from src import vectorstore_setup
+
         vectorstore_setup._chroma_client = None
         vectorstore_setup._embedding_function = None
         vectorstore_setup.initialize_vectorstore(train_df, lob_df, force_rebuild=True)
@@ -116,12 +133,21 @@ def test_get_collections_returns_both():
     mock_chroma_client = MagicMock()
     mock_lob_col = MagicMock()
     mock_assoc_col = MagicMock()
-    mock_chroma_client.get_or_create_collection.side_effect = [mock_lob_col, mock_assoc_col]
+    mock_chroma_client.get_or_create_collection.side_effect = [
+        mock_lob_col,
+        mock_assoc_col,
+    ]
     mock_ef = MagicMock()
 
-    with patch("chromadb.PersistentClient", return_value=mock_chroma_client), \
-         patch("chromadb.utils.embedding_functions.SentenceTransformerEmbeddingFunction", return_value=mock_ef):
+    with (
+        patch("chromadb.PersistentClient", return_value=mock_chroma_client),
+        patch(
+            "chromadb.utils.embedding_functions.SentenceTransformerEmbeddingFunction",
+            return_value=mock_ef,
+        ),
+    ):
         from src import vectorstore_setup
+
         vectorstore_setup._chroma_client = None
         vectorstore_setup._embedding_function = None
         lob_col, assoc_col = vectorstore_setup.get_collections()

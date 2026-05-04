@@ -70,13 +70,15 @@ def _embed_associations_collection(
     for idx, row in train_df.iterrows():
         ids.append(f"art_{idx}_{row['codice_articolo']}")
         documents.append(str(row["rag_text"]))
-        metadatas.append({
-            "codice_articolo": str(row["codice_articolo"]),
-            "lob_code_str": str(row["lob_code_str"]),
-            "lob_nome": str(row.get("lob_nome", "")),
-            "inventario": str(row.get("inventario", "")),
-            "descrizione_articolo": str(row.get("descrizione_articolo", "")),
-        })
+        metadatas.append(
+            {
+                "codice_articolo": str(row["codice_articolo"]),
+                "lob_code_str": str(row["lob_code_str"]),
+                "lob_nome": str(row.get("lob_nome", "")),
+                "inventario": str(row.get("inventario", "")),
+                "descrizione_articolo": str(row.get("descrizione_articolo", "")),
+            }
+        )
 
     for i in range(0, len(ids), batch_size):
         collection.add(

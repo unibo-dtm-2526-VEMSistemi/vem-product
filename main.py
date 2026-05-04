@@ -20,7 +20,7 @@ def _run_cli(article_code: str) -> None:
     from data_loader import load_datasets, get_train_test_split
     from graph import classify_article
 
-    print(f"Loading datasets...")
+    print("Loading datasets...")
     lob_df, _ = load_datasets()
     train_df, _ = get_train_test_split()
 
@@ -36,5 +36,7 @@ if __name__ == "__main__":
     if len(sys.argv) > 1 and sys.argv[1] == "serve":
         _run_server()
     else:
-        code = sys.argv[1] if len(sys.argv) > 1 else input("Enter article code: ").strip()
+        code = (
+            sys.argv[1] if len(sys.argv) > 1 else input("Enter article code: ").strip()
+        )
         _run_cli(code)

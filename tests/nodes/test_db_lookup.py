@@ -1,5 +1,4 @@
 import pandas as pd
-import pytest
 from unittest.mock import patch
 
 
@@ -27,18 +26,27 @@ def test_db_lookup_found():
         "error": None,
     }
 
-    mock_train_df = pd.DataFrame([{
-        "codice_articolo": "ART-001",
-        "descrizione_articolo": "CISCO SWITCH 24P",
-        "lob_code_str": "02002",
-        "lob_nome": "APPARATI CISCO LAN",
-        "inventario": "Inventario",
-        "brand_vendor": "CISCO",
-        "product_family": "SWITCH",
-    }])
+    mock_train_df = pd.DataFrame(
+        [
+            {
+                "codice_articolo": "ART-001",
+                "descrizione_articolo": "CISCO SWITCH 24P",
+                "lob_code_str": "02002",
+                "lob_nome": "APPARATI CISCO LAN",
+                "inventario": "Inventario",
+                "brand_vendor": "CISCO",
+                "product_family": "SWITCH",
+            }
+        ]
+    )
 
-    with patch("src.nodes.db_lookup.load_datasets", return_value=(pd.DataFrame(), mock_train_df)), \
-         patch("src.nodes.db_lookup.get_article_info", return_value=MOCK_TRAIN_INFO):
+    with (
+        patch(
+            "src.nodes.db_lookup.load_datasets",
+            return_value=(pd.DataFrame(), mock_train_df),
+        ),
+        patch("src.nodes.db_lookup.get_article_info", return_value=MOCK_TRAIN_INFO),
+    ):
         result = db_lookup_node(state)
 
     assert result["article_info"] is not None
@@ -60,8 +68,13 @@ def test_db_lookup_not_found():
         "error": None,
     }
 
-    with patch("src.nodes.db_lookup.load_datasets", return_value=(pd.DataFrame(), pd.DataFrame())), \
-         patch("src.nodes.db_lookup.get_article_info", return_value=None):
+    with (
+        patch(
+            "src.nodes.db_lookup.load_datasets",
+            return_value=(pd.DataFrame(), pd.DataFrame()),
+        ),
+        patch("src.nodes.db_lookup.get_article_info", return_value=None),
+    ):
         result = db_lookup_node(state)
 
     assert result["article_info"] is None
@@ -82,8 +95,13 @@ def test_db_lookup_preserves_other_state_fields():
         "error": None,
     }
 
-    with patch("src.nodes.db_lookup.load_datasets", return_value=(pd.DataFrame(), pd.DataFrame())), \
-         patch("src.nodes.db_lookup.get_article_info", return_value=MOCK_TRAIN_INFO):
+    with (
+        patch(
+            "src.nodes.db_lookup.load_datasets",
+            return_value=(pd.DataFrame(), pd.DataFrame()),
+        ),
+        patch("src.nodes.db_lookup.get_article_info", return_value=MOCK_TRAIN_INFO),
+    ):
         result = db_lookup_node(state)
 
     # These fields should not be touched by db_lookup

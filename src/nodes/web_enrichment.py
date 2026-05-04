@@ -80,7 +80,9 @@ def web_enrichment_node(state: AgentState) -> dict:
     try:
         tavily = TavilyClient(api_key=os.environ.get("TAVILY_API_KEY", ""))
         query = _build_search_query(description, brand)
-        search_response = tavily.search(query=query, max_results=TAVILY_MAX_RESULTS, timeout=8)
+        search_response = tavily.search(
+            query=query, max_results=TAVILY_MAX_RESULTS, timeout=8
+        )
         results = search_response.get("results", [])
         formatted = _format_results(results)
 
@@ -95,10 +97,12 @@ def web_enrichment_node(state: AgentState) -> dict:
         user_message = (
             f"Product: {description}\n\nSearch results:\n{formatted}\n\n/no_think"
         )
-        response = llm.invoke([
-            SystemMessage(content=_SYSTEM_PROMPT),
-            HumanMessage(content=user_message),
-        ])
+        response = llm.invoke(
+            [
+                SystemMessage(content=_SYSTEM_PROMPT),
+                HumanMessage(content=user_message),
+            ]
+        )
 
         enrichment = response.content.strip()
         return {"web_enrichment": enrichment}

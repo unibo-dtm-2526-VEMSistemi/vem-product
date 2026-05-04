@@ -23,6 +23,7 @@ def _timed(name: str, fn):
         result = fn(state)
         print(f"[timing] {name}: {time.perf_counter() - t0:.2f}s")
         return result
+
     return wrapper
 
 

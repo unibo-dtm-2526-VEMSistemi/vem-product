@@ -1,4 +1,3 @@
-import pytest
 from unittest.mock import patch
 from fastapi.testclient import TestClient
 
@@ -10,12 +9,30 @@ MOCK_CLASSIFY_FOUND = {
     "existing_inventory": "Inventario",
     "web_enrichment": "Hardware: switch Cisco.",
     "suggestions": [
-        {"rank": 1, "lob_code": "02002", "lob_name": "APPARATI CISCO LAN",
-         "inventory": "Inventario", "explanation": "Switch Cisco.", "confidence": 0.88},
-        {"rank": 2, "lob_code": "04001", "lob_name": "TELEFONIA IP",
-         "inventory": "Inventario", "explanation": "Telefonia.", "confidence": 0.55},
-        {"rank": 3, "lob_code": "01001", "lob_name": "CABLAGGI",
-         "inventory": "Inventario", "explanation": "Cablaggi.", "confidence": 0.30},
+        {
+            "rank": 1,
+            "lob_code": "02002",
+            "lob_name": "APPARATI CISCO LAN",
+            "inventory": "Inventario",
+            "explanation": "Switch Cisco.",
+            "confidence": 0.88,
+        },
+        {
+            "rank": 2,
+            "lob_code": "04001",
+            "lob_name": "TELEFONIA IP",
+            "inventory": "Inventario",
+            "explanation": "Telefonia.",
+            "confidence": 0.55,
+        },
+        {
+            "rank": 3,
+            "lob_code": "01001",
+            "lob_name": "CABLAGGI",
+            "inventory": "Inventario",
+            "explanation": "Cablaggi.",
+            "confidence": 0.30,
+        },
     ],
     "error": None,
 }
@@ -34,6 +51,7 @@ MOCK_CLASSIFY_NOT_FOUND = {
 def _get_test_client():
     """Import app inside function to allow patching startup."""
     from src.api import app
+
     return TestClient(app)
 
 
@@ -47,10 +65,12 @@ def test_health_endpoint():
 
 
 def test_classify_found():
-    with patch("src.api.classify_article", return_value=MOCK_CLASSIFY_FOUND), \
-         patch("src.api.load_datasets", return_value=(None, None)), \
-         patch("src.api.get_train_test_split", return_value=(None, None)), \
-         patch("src.api.initialize_vectorstore"):
+    with (
+        patch("src.api.classify_article", return_value=MOCK_CLASSIFY_FOUND),
+        patch("src.api.load_datasets", return_value=(None, None)),
+        patch("src.api.get_train_test_split", return_value=(None, None)),
+        patch("src.api.initialize_vectorstore"),
+    ):
         client = _get_test_client()
         response = client.post("/classify", json={"article_code": "ART-001"})
 
@@ -64,10 +84,12 @@ def test_classify_found():
 
 
 def test_classify_not_found():
-    with patch("src.api.classify_article", return_value=MOCK_CLASSIFY_NOT_FOUND), \
-         patch("src.api.load_datasets", return_value=(None, None)), \
-         patch("src.api.get_train_test_split", return_value=(None, None)), \
-         patch("src.api.initialize_vectorstore"):
+    with (
+        patch("src.api.classify_article", return_value=MOCK_CLASSIFY_NOT_FOUND),
+        patch("src.api.load_datasets", return_value=(None, None)),
+        patch("src.api.get_train_test_split", return_value=(None, None)),
+        patch("src.api.initialize_vectorstore"),
+    ):
         client = _get_test_client()
         response = client.post("/classify", json={"article_code": "NOPE"})
 
@@ -81,10 +103,12 @@ def test_lob_codes_endpoint():
     lob_csv = "LOB Code,Name\n01001,CABLAGGI COMMSCOPE\n02002,APPARATI CISCO LAN\n"
     mock_lob_df = pd.read_csv(io.StringIO(lob_csv), dtype=str)
 
-    with patch("src.api.get_lob_codes", return_value=mock_lob_df), \
-         patch("src.api.load_datasets", return_value=(None, None)), \
-         patch("src.api.get_train_test_split", return_value=(None, None)), \
-         patch("src.api.initialize_vectorstore"):
+    with (
+        patch("src.api.get_lob_codes", return_value=mock_lob_df),
+        patch("src.api.load_datasets", return_value=(None, None)),
+        patch("src.api.get_train_test_split", return_value=(None, None)),
+        patch("src.api.initialize_vectorstore"),
+    ):
         client = _get_test_client()
         response = client.get("/lob-codes")
 

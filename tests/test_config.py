@@ -8,7 +8,6 @@ from src.config import (
     FINAL_TOP_N,
     TEST_SPLIT_RATIO,
     RANDOM_SEED,
-    EMBEDDING_MODEL,
     API_PORT,
 )
 

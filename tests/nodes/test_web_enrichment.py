@@ -1,4 +1,3 @@
-import pytest
 from unittest.mock import patch, MagicMock
 
 
@@ -27,15 +26,23 @@ def test_web_enrichment_success():
     mock_tavily = MagicMock()
     mock_tavily.search.return_value = {
         "results": [
-            {"title": "Cisco Switch", "content": "A network hardware device.", "url": "http://example.com"}
+            {
+                "title": "Cisco Switch",
+                "content": "A network hardware device.",
+                "url": "http://example.com",
+            }
         ]
     }
 
     mock_llm = MagicMock()
-    mock_llm.invoke.return_value = MagicMock(content="Hardware: switch di rete Cisco, asset durevole.")
+    mock_llm.invoke.return_value = MagicMock(
+        content="Hardware: switch di rete Cisco, asset durevole."
+    )
 
-    with patch("src.nodes.web_enrichment.TavilyClient", return_value=mock_tavily), \
-         patch("src.nodes.web_enrichment.ChatOllama", return_value=mock_llm):
+    with (
+        patch("src.nodes.web_enrichment.TavilyClient", return_value=mock_tavily),
+        patch("src.nodes.web_enrichment.ChatOllama", return_value=mock_llm),
+    ):
         result = web_enrichment_node(MOCK_STATE)
 
     assert "web_enrichment" in result
@@ -87,8 +94,10 @@ def test_web_enrichment_llm_failure_fallback():
     mock_llm = MagicMock()
     mock_llm.invoke.side_effect = Exception("LLM error")
 
-    with patch("src.nodes.web_enrichment.TavilyClient", return_value=mock_tavily), \
-         patch("src.nodes.web_enrichment.ChatOllama", return_value=mock_llm):
+    with (
+        patch("src.nodes.web_enrichment.TavilyClient", return_value=mock_tavily),
+        patch("src.nodes.web_enrichment.ChatOllama", return_value=mock_llm),
+    ):
         result = web_enrichment_node(MOCK_STATE)
 
     assert result["web_enrichment"] == "No external information available."
