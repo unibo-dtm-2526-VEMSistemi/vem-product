@@ -3,6 +3,7 @@ from __future__ import annotations
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 from config import OLLAMA_MODEL
@@ -26,6 +27,13 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 class ClassificationRequest(BaseModel):
     article_code: str
@@ -43,9 +51,7 @@ class LOBSuggestion(BaseModel):
 class ClassificationResponse(BaseModel):
     article_code: str
     article_description: str | None
-    existing_lob: str | None
-    existing_inventory: str | None
-    web_enrichment: str | None
+    description: str | None
     suggestions: list[LOBSuggestion]
     error: str | None
 

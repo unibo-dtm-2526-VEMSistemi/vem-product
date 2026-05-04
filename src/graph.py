@@ -10,11 +10,11 @@ from nodes.web_enrichment import web_enrichment_node
 from nodes.rag_classification import rag_classification_node
 
 
-def should_continue(state: AgentState) -> str:
-    """Conditional edge: stop if article not found."""
+def should_continue(state: AgentState) -> str | list[str]:
+    """Conditional edge: stop if article not found, else fan out to both nodes in parallel."""
     if state.get("article_info") is None:
         return "end"
-    return "continue"
+    return ["web_enrichment", "rag_classification"]
 
 
 def _timed(name: str, fn):
@@ -50,9 +50,13 @@ def _build_graph() -> StateGraph:
     workflow.add_conditional_edges(
         "db_lookup",
         should_continue,
-        {"continue": "web_enrichment", "end": END},
+        {
+            "end": END,
+            "web_enrichment": "web_enrichment",
+            "rag_classification": "rag_classification",
+        },
     )
-    workflow.add_edge("web_enrichment", "rag_classification")
+    workflow.add_edge("web_enrichment", END)
     workflow.add_edge("rag_classification", END)
 
     return workflow.compile()
@@ -81,23 +85,15 @@ def classify_article(article_code: str) -> dict:
         return {
             "article_code": article_code,
             "article_description": None,
-            "existing_lob": None,
-            "existing_inventory": None,
-            "web_enrichment": None,
+            "description": None,
             "suggestions": [],
             "error": final_state.get("error"),
         }
 
-    existing_lob = None
-    if article_info.get("lob_code_str") and article_info.get("lob_nome"):
-        existing_lob = f"{article_info['lob_code_str']} - {article_info['lob_nome']}"
-
     return {
         "article_code": article_code,
         "article_description": article_info.get("descrizione_articolo"),
-        "existing_lob": existing_lob,
-        "existing_inventory": article_info.get("inventario"),
-        "web_enrichment": final_state.get("web_enrichment"),
+        "description": final_state.get("web_enrichment"),
         "suggestions": final_state.get("classification", []),
         "error": final_state.get("error"),
     }

@@ -22,6 +22,7 @@ from state import AgentState
 from vectorstore_setup import get_collections, _get_embedding_function
 
 _SYSTEM_PROMPT = """\
+/no_think \
 Sei un esperto agente di classificazione contabile per un'azienda italiana ICT (VEM Sistemi). \
 Il tuo compito è classificare un prodotto/articolo nel corretto codice Line of Business (LOB) \
 e determinare il suo trattamento a magazzino.
@@ -75,38 +76,6 @@ def parse_qwen3_json(raw_output: str) -> dict:
         raise ValueError(
             f"Could not parse JSON from LLM output: {exc}\nRaw: {text[:500]}"
         )
-
-
-def _infer_inventory_filter(web_enrichment: str) -> str | None:
-    """Return metadata filter value if enrichment clearly indicates hardware/software."""
-    lower = web_enrichment.lower()
-    hardware_signals = {
-        "hardware",
-        "fisico",
-        "physical",
-        "appliance",
-        "device",
-        "dispositivo",
-        "asset durevole",
-    }
-    software_signals = {
-        "software",
-        "licenza",
-        "license",
-        "subscription",
-        "abbonamento",
-        "saas",
-        "cloud",
-    }
-
-    has_hardware = any(s in lower for s in hardware_signals)
-    has_software = any(s in lower for s in software_signals)
-
-    if has_hardware and not has_software:
-        return "Inventario"
-    if has_software and not has_hardware:
-        return "Non in inventario"
-    return None
 
 
 def _embed_query(query: str) -> list[float]:
@@ -180,7 +149,6 @@ def rag_classification_node(state: AgentState) -> dict:
     timings: dict[str, float] = {}
 
     article_info = state["article_info"]
-    web_enrichment = state.get("web_enrichment", "")
 
     # Step A: Build query
     t0 = time.perf_counter()
@@ -190,8 +158,6 @@ def rag_classification_node(state: AgentState) -> dict:
     if article_info.get("product_family"):
         parts.append(article_info["product_family"])
     parts.append(article_info["descrizione_articolo"])
-    if web_enrichment and web_enrichment != "No external information available.":
-        parts.append(web_enrichment)
     query = " ".join(parts)
     timings["A_build_query"] = time.perf_counter() - t0
 
@@ -206,8 +172,8 @@ def rag_classification_node(state: AgentState) -> dict:
         timings["B2_embed_query"] = time.perf_counter() - t0
 
         t0 = time.perf_counter()
-        inventory_filter = _infer_inventory_filter(web_enrichment)
-        where_filter = {"inventario": inventory_filter} if inventory_filter else None
+        inventory_val = article_info.get("inventario")
+        where_filter = {"inventario": inventory_val} if inventory_val else None
 
         assoc_query_kwargs = {
             "query_embeddings": [embedding],
@@ -252,8 +218,7 @@ def rag_classification_node(state: AgentState) -> dict:
             f"Codice articolo: {article_info['codice_articolo']}\n"
             f"Descrizione: {article_info['descrizione_articolo']}\n"
             f"Brand/Vendor: {article_info.get('brand_vendor', 'N/A')}\n"
-            f"Famiglia prodotto: {article_info.get('product_family', 'N/A')}\n"
-            f"Informazioni web: {web_enrichment or 'N/A'}\n\n"
+            f"Famiglia prodotto: {article_info.get('product_family', 'N/A')}\n\n"
             f"{context_block}"
         )
 

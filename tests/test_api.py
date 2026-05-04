@@ -5,9 +5,7 @@ from fastapi.testclient import TestClient
 MOCK_CLASSIFY_FOUND = {
     "article_code": "ART-001",
     "article_description": "CISCO SWITCH 24P",
-    "existing_lob": "02002 - APPARATI CISCO LAN",
-    "existing_inventory": "Inventario",
-    "web_enrichment": "Hardware: switch Cisco.",
+    "description": "Hardware: switch Cisco.",
     "suggestions": [
         {
             "rank": 1,
@@ -40,9 +38,7 @@ MOCK_CLASSIFY_FOUND = {
 MOCK_CLASSIFY_NOT_FOUND = {
     "article_code": "NOPE",
     "article_description": None,
-    "existing_lob": None,
-    "existing_inventory": None,
-    "web_enrichment": None,
+    "description": None,
     "suggestions": [],
     "error": "Article not found in dataset: NOPE",
 }

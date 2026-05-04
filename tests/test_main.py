@@ -22,9 +22,7 @@ def test_rag_advise_contract() -> None:
     mock_result = {
         "article_code": "ART-001",
         "article_description": "CISCO SWITCH 24P",
-        "existing_lob": "02002 - APPARATI CISCO LAN",
-        "existing_inventory": "Inventario",
-        "web_enrichment": "Hardware switch.",
+        "description": "Hardware switch.",
         "suggestions": [
             {
                 "rank": 1,

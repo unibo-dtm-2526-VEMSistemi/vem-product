@@ -46,27 +46,6 @@ def test_parse_qwen3_json_invalid_raises():
         parse_qwen3_json("this is not json at all")
 
 
-def test_infer_inventory_filter_hardware():
-    from src.nodes.rag_classification import _infer_inventory_filter
-
-    result = _infer_inventory_filter("Hardware: switch fisico, asset durevole.")
-    assert result == "Inventario"
-
-
-def test_infer_inventory_filter_software():
-    from src.nodes.rag_classification import _infer_inventory_filter
-
-    result = _infer_inventory_filter("Software: licenza subscription annuale.")
-    assert result == "Non in inventario"
-
-
-def test_infer_inventory_filter_ambiguous():
-    from src.nodes.rag_classification import _infer_inventory_filter
-
-    result = _infer_inventory_filter("prodotto ICT generico")
-    assert result is None
-
-
 MOCK_VALID_LLM_RESPONSE = """{
   "classifications": [
     {"lob_code": "02002", "lob_name": "APPARATI CISCO LAN", "inventory": "Inventario", "explanation": "Switch Cisco.", "llm_confidence": 90},
@@ -216,3 +195,49 @@ def test_embed_query_calls_embedding_function():
 
     mock_ef.assert_called_once_with(["CISCO SWITCH 24P"])
     assert result == [0.1, 0.2, 0.3]
+
+
+def test_rag_classification_ignores_web_enrichment():
+    """rag_classification must not use web_enrichment content in LLM messages."""
+    from src.nodes.rag_classification import rag_classification_node
+
+    state = {
+        "article_code": "ART-001",
+        "article_info": {
+            "codice_articolo": "ART-001",
+            "descrizione_articolo": "CISCO SWITCH 24P",
+            "lob_code_str": "02002",
+            "lob_nome": "APPARATI CISCO LAN",
+            "inventario": "Inventario",
+            "brand_vendor": "CISCO",
+            "product_family": "SWITCH",
+        },
+        "web_enrichment": "QUESTO_TESTO_NON_DEVE_APPARIRE_NEI_MESSAGGI_LLM",
+        "retrieval_results": [],
+        "classification": [],
+        "error": None,
+    }
+
+    mock_assoc, mock_lob = _make_mock_collections(distances=[[0.1, 0.2, 0.3]])
+
+    mock_llm = MagicMock()
+    mock_llm.invoke.return_value = MagicMock(
+        content='{"classifications": [{"lob_code": "02002", "lob_name": "APPARATI CISCO LAN", "inventory": "Inventario", "explanation": "Test.", "llm_confidence": 80}, {"lob_code": "04001", "lob_name": "TELEFONIA IP", "inventory": "Inventario", "explanation": "Test.", "llm_confidence": 60}, {"lob_code": "01001", "lob_name": "CABLAGGI", "inventory": "Inventario", "explanation": "Test.", "llm_confidence": 40}]}'
+    )
+
+    with (
+        patch(
+            "src.nodes.rag_classification.get_collections",
+            return_value=(mock_lob, mock_assoc),
+        ),
+        patch("src.nodes.rag_classification.ChatOllama", return_value=mock_llm),
+        patch("src.nodes.rag_classification._embed_query", return_value=[0.1] * 10),
+        patch("src.nodes.rag_classification.compute_confidence", return_value=75),
+    ):
+        rag_classification_node(state)
+
+    # Get all message content strings passed to LLM
+    call_args = mock_llm.invoke.call_args
+    messages = call_args[0][0]  # first positional arg is the messages list
+    all_content = " ".join(m.content for m in messages)
+    assert "QUESTO_TESTO_NON_DEVE_APPARIRE" not in all_content

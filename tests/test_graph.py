@@ -1,4 +1,4 @@
-from unittest.mock import patch
+from unittest.mock import patch, MagicMock
 
 
 def test_classify_article_found():
@@ -57,8 +57,7 @@ def test_classify_article_found():
 
     assert result["article_code"] == "ART-001"
     assert result["article_description"] == "CISCO SWITCH 24P"
-    assert result["existing_lob"] == "02002 - APPARATI CISCO LAN"
-    assert result["existing_inventory"] == "Inventario"
+    assert result["description"] == "Hardware: switch Cisco."
     assert len(result["suggestions"]) == 3
     assert result["suggestions"][0]["rank"] == 1
     assert result["error"] is None
@@ -107,4 +106,54 @@ def test_should_continue_routes_to_continue():
         "classification": [],
         "error": None,
     }
-    assert should_continue(state_with_article) == "continue"
+    assert should_continue(state_with_article) == [
+        "web_enrichment",
+        "rag_classification",
+    ]
+
+
+def test_parallel_both_nodes_called():
+    """Both web_enrichment_node and rag_classification_node are each called exactly once."""
+    from src.graph import classify_article
+
+    mock_db_result = {
+        "article_info": {
+            "codice_articolo": "ART-001",
+            "descrizione_articolo": "CISCO SWITCH 24P",
+            "lob_code_str": "02002",
+            "lob_nome": "APPARATI CISCO LAN",
+            "inventario": "Inventario",
+            "brand_vendor": "CISCO",
+            "product_family": "SWITCH",
+        },
+        "error": None,
+    }
+    mock_web_result = {"web_enrichment": "Hardware: switch Cisco."}
+    mock_rag_result = {
+        "classification": [
+            {
+                "rank": 1,
+                "lob_code": "02002",
+                "lob_name": "APPARATI CISCO LAN",
+                "inventory": "Inventario",
+                "explanation": "Switch Cisco.",
+                "confidence": 0.88,
+            }
+        ],
+        "retrieval_results": [],
+    }
+
+    web_mock = MagicMock(return_value=mock_web_result)
+    rag_mock = MagicMock(return_value=mock_rag_result)
+
+    with (
+        patch("src.graph.db_lookup_node", return_value=mock_db_result),
+        patch("src.graph.web_enrichment_node", web_mock),
+        patch("src.graph.rag_classification_node", rag_mock),
+    ):
+        classify_article("ART-001")
+
+    assert web_mock.call_count == 1, "web_enrichment_node must be called exactly once"
+    assert rag_mock.call_count == 1, (
+        "rag_classification_node must be called exactly once"
+    )
